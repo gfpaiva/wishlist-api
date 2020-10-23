@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  db:
+    image: mysql:8.0
+    command: "--default-authentication-plugin=mysql_native_password"
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - backnet
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+  app:
+    build: app
+    restart: always
+    volumes:
+      - ./app:/code
+    ports:
+      - 5678:5678
+    networks:
+      - backnet
+      - frontnet
+    depends_on:
+      - db
+  web:
+    build: web
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - frontnet
+    depends_on:
+      - app
+volumes:
+  db-data:
+networks:
+  backnet:
+  frontnet:
