@@ -8,11 +8,11 @@ create_user_service = CreateUser(users_repository)
 
 
 @app.get('/user')
-async def show_users():
+def show_users():
     return users_repository.find_all()
 
 
 @app.post('/user')
-async def create_user(user: UserRequestBody):
+def create_user(user: UserRequestBody):
     new_user = create_user_service.run(name=user.name, email=user.email)
     return new_user
