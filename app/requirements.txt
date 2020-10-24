@@ -2,5 +2,7 @@ uvicorn==0.12.2
 pydantic==1.6.1
 debugpy==1.0.0
 requests==2.24.0
+psycopg2==2.8.6
+peewee==3.13.3
 fastapi==0.61.1
 pytest==6.1.1

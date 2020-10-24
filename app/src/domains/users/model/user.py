@@ -1,12 +1,21 @@
-from dataclasses import dataclass
+from peewee import (
+    Model,
+    CharField,
+    UUIDField,
+)
 from pydantic import BaseModel
 
+from src.infra.db import db
 
-@dataclass
-class User:
-    id: str
-    name: str
-    email: str
+
+class User(Model):
+    id = UUIDField()
+    name = CharField()
+    email = CharField()
+
+    class Meta:
+        table_name = 'users'
+        database = db
 
 
 class UserRequestBody(BaseModel):

@@ -1,11 +1,9 @@
 from src.infra.server import app
 from src.domains.users.services.create_user import CreateUser
-from src.domains.users.repository.fake_users_repository import (
-    FakeUsersRepository
-)
+from src.domains.users.repository import DBUsersRepository
 from src.domains.users.model.user import UserRequestBody
 
-users_repository = FakeUsersRepository()
+users_repository = DBUsersRepository()
 create_user_service = CreateUser(users_repository)
 
 

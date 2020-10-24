@@ -1,18 +1,20 @@
 version: "3.7"
 services:
   db:
-    image: mysql:8.0
-    command: "--default-authentication-plugin=mysql_native_password"
+    image: postgres:13.0
     restart: always
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/postgresql/data
+      - ./db/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - 3306:3306
+      - 5432:5432
     networks:
       - backnet
     environment:
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=wishlist
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
   app:
     build: app
     restart: always
@@ -25,6 +27,11 @@ services:
       - frontnet
     depends_on:
       - db
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
   web:
     build: web
     restart: always
