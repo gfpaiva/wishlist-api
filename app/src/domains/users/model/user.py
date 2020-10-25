@@ -21,3 +21,9 @@ class User(Model):
 class UserRequestBody(BaseModel):
     name: str
     email: str
+
+
+class UserResponseBody(BaseModel):
+    id: str
+    name: str
+    email: str

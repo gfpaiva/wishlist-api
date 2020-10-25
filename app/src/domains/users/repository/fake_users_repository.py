@@ -12,7 +12,11 @@ class FakeUsersRepository(UsersRepository):
     def find_all(self):
         return self.users
 
-    def create(self, name, email):
+    def create(
+        self,
+        name,
+        email,
+    ):
         user = User(id=uuid.uuid4(), name=name, email=email)
         self.users.append(user)
 
@@ -35,6 +39,7 @@ class FakeUsersRepository(UsersRepository):
 
     def update(
         self,
+        id,
         name,
         email,
     ):

@@ -13,13 +13,15 @@ class DBUsersRepository(UsersRepository):
         self,
         id: str,
     ):
-        return User.get_by_id(id)
+        user = User.select().where(User.id == id)
+        return user.get().__data__ if user else None
 
     def find_by_email(
         self,
         email: str,
     ):
-        return User.select().where(User.email == email)
+        user = User.select().where(User.email == email)
+        return user.get().__data__ if user else None
 
     def create(
         self,

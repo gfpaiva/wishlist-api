@@ -36,6 +36,7 @@ class UsersRepository(abc.ABC):
     @abc.abstractclassmethod
     def update(
         self,
+        id: str,
         name: Optional[str],
         email: Optional[str],
     ) -> User:
