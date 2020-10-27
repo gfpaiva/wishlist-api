@@ -26,7 +26,10 @@ class FakeUsersRepository(UsersRepository):
         self,
         id,
     ):
-        pass
+        return next(
+            (user for user in self.users if user.id == id),
+            None,
+        )
 
     def find_by_email(
         self,
@@ -43,4 +46,20 @@ class FakeUsersRepository(UsersRepository):
         name,
         email,
     ):
-        pass
+        find_user = None
+
+        for user in self.users:
+            if user.id == id:
+                if name:
+                    user.name = name
+                if email:
+                    user.email = email
+            find_user = user
+
+        return find_user
+
+    def delete(
+        self,
+        id,
+    ):
+        self.users = [user for user in self.users if not (user['id'] == id)]

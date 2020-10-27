@@ -1,17 +1,21 @@
-import uuid
 from typing import List
 from fastapi import HTTPException
 
 from src.infra.server import app
 from src.domains.users.services.create_user import CreateUser
+from src.domains.users.services.update_user import UpdateUser
+from src.domains.users.services.delete_user import DeleteUser
 from src.domains.users.repository import DBUsersRepository
 from src.domains.users.model.user import (
     UserRequestBody,
     UserResponseBody,
+    UserUpdateRequestBody,
 )
 
 users_repository = DBUsersRepository()
 create_user_service = CreateUser(users_repository)
+update_user_service = UpdateUser(users_repository)
+delete_user_service = DeleteUser(users_repository)
 
 
 @app.get('/user', response_model=List[UserResponseBody])
@@ -19,9 +23,14 @@ def list_users():
     return users_repository.find_all()
 
 
+@app.post('/user', response_model=UserResponseBody)
+def create_user(user: UserRequestBody):
+    new_user = create_user_service.run(name=user.name, email=user.email)
+    return new_user
+
+
 @app.get('/user/{id}', response_model=UserResponseBody)
-def show_user(id: uuid.UUID):
-    id = str(id)
+def show_user(id: str):
     user = users_repository.find_by_id(id)
     if user:
         return user
@@ -31,7 +40,17 @@ def show_user(id: uuid.UUID):
         )
 
 
-@app.post('/user', response_model=UserResponseBody)
-def create_user(user: UserRequestBody):
-    new_user = create_user_service.run(name=user.name, email=user.email)
-    return new_user
+@app.patch('/user/{id}')
+def update_user(id: str, user: UserUpdateRequestBody):
+    updated_user = update_user_service.run(
+        id=id,
+        name=user.name,
+        email=user.email,
+    )
+    return updated_user
+
+
+@app.delete('/user/{id}', status_code=204)
+def delete_user(id: str):
+    delete_user_service.run(id)
+    return

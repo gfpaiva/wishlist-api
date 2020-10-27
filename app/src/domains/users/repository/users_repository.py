@@ -41,3 +41,10 @@ class UsersRepository(abc.ABC):
         email: Optional[str],
     ) -> User:
         pass
+
+    @abc.abstractclassmethod
+    def delete(
+        self,
+        id: str,
+    ) -> User:
+        pass

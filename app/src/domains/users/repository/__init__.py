@@ -1,4 +1,4 @@
-from playhouse.shortcuts import model_to_dict
+from playhouse.shortcuts import model_to_dict, dict_to_model
 
 from src.domains.users.repository.users_repository import UsersRepository
 from src.domains.users.model.user import User
@@ -40,4 +40,20 @@ class DBUsersRepository(UsersRepository):
         name,
         email,
     ):
-        pass
+        user = User.get_by_id(id)
+
+        if name:
+            user.name = name
+        if email:
+            user.email = email
+
+        user.save()
+        return model_to_dict(user)
+
+    def delete(
+        self,
+        id,
+    ):
+        user = User.get_by_id(id)
+        User.delete().where(User.id == id).execute()
+        return model_to_dict(user)

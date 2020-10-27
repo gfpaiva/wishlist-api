@@ -1,8 +1,7 @@
-import uuid
+from typing import Optional
 from peewee import (
     Model,
     CharField,
-    UUIDField,
 )
 from pydantic import BaseModel
 
@@ -10,7 +9,7 @@ from src.infra.db import db
 
 
 class User(Model):
-    id = UUIDField()
+    id = CharField()
     name = CharField()
     email = CharField()
 
@@ -24,7 +23,12 @@ class UserRequestBody(BaseModel):
     email: str
 
 
+class UserUpdateRequestBody(BaseModel):
+    name: Optional[str]
+    email: Optional[str]
+
+
 class UserResponseBody(BaseModel):
-    id: uuid.UUID
+    id: str
     name: str
     email: str
