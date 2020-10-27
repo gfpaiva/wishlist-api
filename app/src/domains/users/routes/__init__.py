@@ -23,7 +23,6 @@ def list_users():
 def show_user(id: uuid.UUID):
     id = str(id)
     user = users_repository.find_by_id(id)
-    print('user', user)
     if user:
         return user
     else:
@@ -32,7 +31,7 @@ def show_user(id: uuid.UUID):
         )
 
 
-@app.post('/user')
+@app.post('/user', response_model=UserResponseBody)
 def create_user(user: UserRequestBody):
     new_user = create_user_service.run(name=user.name, email=user.email)
     return new_user

@@ -1,3 +1,4 @@
+import uuid
 from peewee import (
     Model,
     CharField,
@@ -24,6 +25,6 @@ class UserRequestBody(BaseModel):
 
 
 class UserResponseBody(BaseModel):
-    id: str
+    id: uuid.UUID
     name: str
     email: str
