@@ -1,5 +1,3 @@
-from playhouse.shortcuts import model_to_dict
-
 from src.domains.users.repository.users_repository import UsersRepository
 from src.domains.users.model.user import User
 
@@ -9,21 +7,21 @@ class DBUsersRepository(UsersRepository):
         self,
     ):
         users = User.select().dicts()
-        return [user for user in users]
+        return users
 
     def find_by_id(
         self,
         id: str,
     ):
         user = User.select().where(User.id == id)
-        return model_to_dict(user.get()) if user else None
+        return user.get() if user else None
 
     def find_by_email(
         self,
         email: str,
     ):
         user = User.select().where(User.email == email)
-        return model_to_dict(user.get()) if user else None
+        return user.get() if user else None
 
     def create(
         self,
@@ -32,7 +30,7 @@ class DBUsersRepository(UsersRepository):
     ):
         new_user = User(name=name, email=email)
         new_user.save()
-        return model_to_dict(new_user)
+        return new_user
 
     def update(
         self,
@@ -48,7 +46,7 @@ class DBUsersRepository(UsersRepository):
             user.email = email
 
         user.save()
-        return model_to_dict(user)
+        return user
 
     def delete(
         self,
@@ -56,4 +54,4 @@ class DBUsersRepository(UsersRepository):
     ):
         user = User.get_by_id(id)
         User.delete().where(User.id == id).execute()
-        return model_to_dict(user)
+        return True

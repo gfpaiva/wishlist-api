@@ -24,7 +24,7 @@ def delete_user():
 
 def test_should_delete_user(delete_user):
     delete_user_service, created_user = delete_user
-    deleted = delete_user_service.run(id=created_user['id'])
+    deleted = delete_user_service.run(id=created_user.id)
 
     assert deleted is True
 

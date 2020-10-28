@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import HTTPException
+from playhouse.shortcuts import model_to_dict
 
 from src.infra.server import app
 from src.domains.users.services.create_user import CreateUser
@@ -11,6 +12,7 @@ from src.domains.users.model.user import (
     UserResponseBody,
     UserUpdateRequestBody,
 )
+from src.exceptions.user_exception import UserException
 
 users_repository = DBUsersRepository()
 create_user_service = CreateUser(users_repository)
@@ -20,24 +22,25 @@ delete_user_service = DeleteUser(users_repository)
 
 @app.get('/user', response_model=List[UserResponseBody])
 def list_users():
-    return users_repository.find_all()
+    users = users_repository.find_all()
+    return [user for user in users.dicts()]
 
 
 @app.post('/user', response_model=UserResponseBody)
 def create_user(user: UserRequestBody):
     new_user = create_user_service.run(name=user.name, email=user.email)
-    return new_user
+    return model_to_dict(new_user)
 
 
 @app.get('/user/{id}', response_model=UserResponseBody)
 def show_user(id: str):
     user = users_repository.find_by_id(id)
-    if user:
-        return user
-    else:
-        raise HTTPException(
-            status_code=404
+    if not user:
+        raise UserException(
+            status_code=404,
+            detail=f'User {id} does not exists'
         )
+    return model_to_dict(user)
 
 
 @app.patch('/user/{id}')
@@ -47,7 +50,7 @@ def update_user(id: str, user: UserUpdateRequestBody):
         name=user.name,
         email=user.email,
     )
-    return updated_user
+    return model_to_dict(updated_user)
 
 
 @app.delete('/user/{id}', status_code=204)

@@ -26,7 +26,7 @@ class UpdateUser:
                 detail=f'User {id} does not exists'
             )
 
-        if email and email != user['email']:
+        if email and email != user.email:
             find_email = self.users_repository.find_by_email(email)
 
             if find_email:
