@@ -1,45 +1,39 @@
 import abc
 from typing import Optional, List
 
-from src.domains.users.model.user import User
+from src.domains.wishlists.model.wishlist import Wishlist
 
 
-class UsersRepository(abc.ABC):
+class WishlistsRepository(abc.ABC):
     @abc.abstractclassmethod
     def find_all(
         self,
-    ) -> List[User]:
+    ) -> List[Wishlist]:
         pass
 
     @abc.abstractclassmethod
     def find_by_id(
         self,
         id: str,
-    ) -> User:
-        pass
-
-    @abc.abstractclassmethod
-    def find_by_email(
-        self,
-        email: str,
-    ) -> User:
+    ) -> Wishlist:
         pass
 
     @abc.abstractclassmethod
     def create(
         self,
-        name: str,
-        email: str,
-    ) -> User:
+        user_id: str,
+        title: str,
+        description: str,
+    ) -> Wishlist:
         pass
 
     @abc.abstractclassmethod
     def update(
         self,
         id: str,
-        name: Optional[str],
-        email: Optional[str],
-    ) -> User:
+        title: Optional[str],
+        description: Optional[str],
+    ) -> Wishlist:
         pass
 
     @abc.abstractclassmethod

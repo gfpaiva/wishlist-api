@@ -1,4 +1,4 @@
-from playhouse.shortcuts import model_to_dict, dict_to_model
+from playhouse.shortcuts import model_to_dict
 
 from src.domains.users.repository.users_repository import UsersRepository
 from src.domains.users.model.user import User

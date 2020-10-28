@@ -7,3 +7,4 @@ def root():
 
 
 from src.domains.users.routes import *  # noqa # isort:skip
+from src.domains.wishlists.routes import *  # noqa # isort:skip

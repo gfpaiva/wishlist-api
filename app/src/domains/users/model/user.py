@@ -9,9 +9,9 @@ from src.infra.db import db
 
 
 class User(Model):
-    id = CharField()
-    name = CharField()
-    email = CharField()
+    id = CharField(primary_key=True, null=False)
+    name = CharField(null=False)
+    email = CharField(null=False, unique=True)
 
     class Meta:
         table_name = 'users'
