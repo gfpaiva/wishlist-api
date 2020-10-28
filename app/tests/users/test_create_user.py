@@ -17,8 +17,8 @@ def test_should_create_and_return_new_user(create_user_service):
     user = create_user_service.run(name='test', email='test@test.com')
 
     assert (
-        type(user.id) is uuid.UUID
-        and user.name == 'test' and user.email == 'test@test.com'
+        type(user['id']) is uuid.UUID
+        and user['name'] == 'test' and user['email'] == 'test@test.com'
     )
 
 

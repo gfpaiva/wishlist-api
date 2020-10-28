@@ -19,15 +19,15 @@ class FakeUsersRepository(UsersRepository):
     ):
         user = User(id=uuid.uuid4(), name=name, email=email)
         self.users.append(user)
-
-        return user
+        return user.__dict__['__data__']
 
     def find_by_id(
         self,
         id,
     ):
         return next(
-            (user for user in self.users if user.id == id),
+            (user.__dict__['__data__']
+             for user in self.users if user.id == id),
             None,
         )
 
@@ -36,7 +36,8 @@ class FakeUsersRepository(UsersRepository):
         email,
     ):
         return next(
-            (user for user in self.users if user.email == email),
+            (user.__dict__['__data__']
+             for user in self.users if user.email == email),
             None,
         )
 
@@ -56,10 +57,11 @@ class FakeUsersRepository(UsersRepository):
                     user.email = email
             find_user = user
 
-        return find_user
+        return find_user.__dict__['__data__']
 
     def delete(
         self,
         id,
     ):
-        self.users = [user for user in self.users if not (user['id'] == id)]
+        self.users = [user for user in self.users if not (user.id == id)]
+        return True
