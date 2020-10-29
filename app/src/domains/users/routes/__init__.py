@@ -1,12 +1,11 @@
 from typing import List
-from fastapi import HTTPException
 from playhouse.shortcuts import model_to_dict
 
 from src.infra.server import app
+from src.domains.users.repository import DBUsersRepository
 from src.domains.users.services.create_user import CreateUser
 from src.domains.users.services.update_user import UpdateUser
 from src.domains.users.services.delete_user import DeleteUser
-from src.domains.users.repository import DBUsersRepository
 from src.domains.users.model.user import (
     UserRequestBody,
     UserResponseBody,

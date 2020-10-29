@@ -31,7 +31,7 @@ class UpdateUser:
 
             if find_email:
                 raise UserException(
-                    status_code=400,
+                    status_code=409,
                     detail=f'User with email {email} alredy exists'
                 )
 

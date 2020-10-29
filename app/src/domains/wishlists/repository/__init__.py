@@ -15,7 +15,19 @@ class DBWishlistsRepository(WishlistsRepository):
         self,
         id,
     ):
-        pass
+        wishlist = Wishlist.select().where(Wishlist.id == id)
+        return wishlist.get() if wishlist else None
+
+    def find_by_user_id(
+        self,
+        user_id,
+    ):
+        wishlists = Wishlist.select(
+            Wishlist.id,
+            Wishlist.title,
+            Wishlist.description
+        ).where(Wishlist.user == user_id)
+        return wishlists
 
     def create(
         self,

@@ -19,6 +19,13 @@ class WishlistsRepository(abc.ABC):
         pass
 
     @abc.abstractclassmethod
+    def find_by_user_id(
+        self,
+        user_id: str,
+    ) -> Wishlist:
+        pass
+
+    @abc.abstractclassmethod
     def create(
         self,
         user_id: str,
