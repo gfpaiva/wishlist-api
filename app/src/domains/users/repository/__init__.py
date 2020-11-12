@@ -52,6 +52,5 @@ class DBUsersRepository(UsersRepository):
         self,
         id,
     ):
-        user = User.get_by_id(id)
         User.delete().where(User.id == id).execute()
         return True

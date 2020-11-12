@@ -7,27 +7,27 @@ from peewee import (
 from pydantic import BaseModel
 
 from src.infra.db import db
-from src.domains.users.model.user import User
+from src.domains.wishlists.model.wishlist import Wishlist
 
 
-class Wishlist(Model):
+class WishlistProduct(Model):
     id = CharField(primary_key=True, null=False)
-    title = CharField(null=False)
-    description = CharField()
-    user = ForeignKeyField(
-        User,
-        column_name='user_id',
-        on_delete='CASCADE'
+    wishlist = ForeignKeyField(
+        Wishlist,
+        column_name='wishlist_id',
+        on_delete='CASCADE',
+        null=False
     )
+    product_id = CharField(null=False)
 
     class Meta:
-        table_name = 'wishlists'
+        table_name = 'wishlists_products'
         database = db
 
 
-class WishlistRequestBody(BaseModel):
-    title: str
-    description: str
+# class WishlistRequestBody(BaseModel):
+#     title: str
+#     description: str
 
 
 # class UserUpdateRequestBody(BaseModel):
