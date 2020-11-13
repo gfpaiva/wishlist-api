@@ -10,13 +10,20 @@ class WishlistsProductsRepository(abc.ABC):
         self,
         wishlist_id: str,
     ) -> List[WishlistProduct]:
+        """
+        Find all products for given wishlist_id(uuid) and return it on list
+        """
         pass
 
     @abc.abstractclassmethod
     def find_by_products_by_product_id(
         self,
+        wishlist_id: str,
         product_id: str,
-    ) -> List[WishlistProduct]:
+    ) -> WishlistProduct:
+        """
+        Find product for given wishlist_id(uuid) and product_id(uuid)
+        """
         pass
 
     @abc.abstractclassmethod
@@ -25,6 +32,9 @@ class WishlistsProductsRepository(abc.ABC):
         wishlist_id: str,
         product_id: str,
     ) -> WishlistProduct:
+        """
+        Create wishlist product. Required fields wishlist_id and product_id
+        """
         pass
 
     @abc.abstractclassmethod
@@ -33,4 +43,7 @@ class WishlistsProductsRepository(abc.ABC):
         wishlist_id: str,
         product_id: str,
     ) -> bool:
+        """
+        Delete wishlist product by given id(uuid)
+        """
         pass

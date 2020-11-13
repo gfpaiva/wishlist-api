@@ -26,6 +26,12 @@ class InsertProductWishlist:
         wishlist_id,
         product_id,
     ):
+        """
+        Service for insert products on wishlist.
+        Checks if wishlist exists,
+        if product alredy exists on wishlist (can't duplicate)
+        and if product exists on products_repository (external service)
+        """
         wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
@@ -34,10 +40,13 @@ class InsertProductWishlist:
                 detail=f'Wishlist {wishlist_id} does not exists'
             )
 
-        products = (self.wishlists_produts_repository
-                    .find_by_products_by_product_id(product_id))
+        product = (self.wishlists_produts_repository
+                   .find_by_products_by_product_id(
+                       wishlist_id=wishlist_id,
+                       product_id=product_id,
+                   ))
 
-        if products:
+        if product:
             raise WishlistException(
                 status_code=409,
                 detail=f'Product {product_id} is alredy on Wishlist'

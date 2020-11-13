@@ -14,6 +14,11 @@ class CreateUser:
         name,
         email,
     ):
+        """
+        Service for create new user using users_repository.
+        Checks required fields
+        and user email alredy exists before insert it.
+        """
         if not name or not email:
             raise UserException(
                 status_code=400,

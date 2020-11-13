@@ -15,6 +15,11 @@ class UpdateUser:
         name,
         email,
     ):
+        """
+        Service for update user by given id using users_repository.
+        Checks required fields and if is updating user email,
+        checks if the new one alredy exists before update it.
+        """
         if not name and not email:
             raise UserException(
                 status_code=400,

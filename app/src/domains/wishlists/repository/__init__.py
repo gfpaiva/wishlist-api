@@ -80,12 +80,14 @@ class DBWishlistsProductsRepository(WishlistsProductsRepository):
 
     def find_by_products_by_product_id(
         self,
+        wishlist_id: str,
         product_id: str,
     ):
-        products = WishlistProduct.select().where(
-            WishlistProduct.product_id == product_id
+        product = WishlistProduct.select().where(
+            WishlistProduct.wishlist == wishlist_id,
+            WishlistProduct.product_id == product_id,
         )
-        return products
+        return product.get() if product else None
 
     def insert_product(
         self,
@@ -105,6 +107,7 @@ class DBWishlistsProductsRepository(WishlistsProductsRepository):
         product_id: str,
     ) -> bool:
         WishlistProduct.delete().where(
-            WishlistProduct.product_id == product_id
+            WishlistProduct.wishlist == wishlist_id,
+            WishlistProduct.product_id == product_id,
         ).execute()
         return True

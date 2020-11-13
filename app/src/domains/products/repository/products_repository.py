@@ -10,6 +10,9 @@ class ProductsRepository(abc.ABC):
         self,
         page: Optional[str],
     ) -> List[Product]:
+        """
+        Find list of products with pagination. Auto starts with page '1'
+        """
         pass
 
     @abc.abstractclassmethod
@@ -17,4 +20,7 @@ class ProductsRepository(abc.ABC):
         self,
         id: str,
     ) -> Product:
+        """
+        Find single product by given id(uuid)
+        """
         pass

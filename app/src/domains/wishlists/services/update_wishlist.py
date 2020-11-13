@@ -1,46 +1,43 @@
-from src.domains.users.repository.users_repository import UsersRepository
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
 )
 from src.exceptions.wishlist_exception import WishlistException
 
 
-class CreateWishlist:
+class UpdateWishlist:
     def __init__(
         self,
         wishlists_repository: WishlistsRepository,
-        users_repository: UsersRepository,
     ):
         self.wishlists_repository = wishlists_repository
-        self.users_repository = users_repository
 
     def run(
         self,
-        user_id,
+        id,
         title,
         description,
     ):
         """
-        Service for create new wishlist.
-        Checks required fields, and if user exists
+        Service for update wishlist details.
+        Checks required fields and if wishlist exists
         """
-        if not title:
+        if not title and not description:
             raise WishlistException(
                 status_code=400,
-                detail='You must provide any title'
+                detail='You must provide title or description'
             )
 
-        user = self.users_repository.find_by_id(user_id)
+        wishlist = self.wishlists_repository.find_by_id(id)
 
-        if not user:
+        if not wishlist:
             raise WishlistException(
                 status_code=404,
-                detail=f'User {user_id} does not exists'
+                detail=f'Wishlist {id} does not exists'
             )
 
-        wishlist = self.wishlists_repository.create(
-            user_id=user_id,
+        wishlist = self.wishlists_repository.update(
+            id=id,
             title=title,
-            description=description
+            description=description,
         )
         return wishlist

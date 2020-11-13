@@ -25,6 +25,12 @@ class ListWishlist:
         self,
         id,
     ):
+        """
+        Service for list single wishlist.
+        Chekcs if wishlist exists.
+        If wishlist has products take products data
+        from products_repository (external service) and append on return data
+        """
         wishlist = self.wishlists_repository.find_by_id(id)
 
         if not wishlist:

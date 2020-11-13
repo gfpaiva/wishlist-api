@@ -13,6 +13,10 @@ class DeleteUser:
         self,
         id,
     ):
+        """
+        Service for delete user by given id using users_repository.
+        Checks if user exists before delete it.
+        """
         user = self.users_repository.find_by_id(id)
 
         if not user:
@@ -21,5 +25,5 @@ class DeleteUser:
                 detail=f'User {id} does not exists'
             )
 
-        user = self.users_repository.delete(id)
+        self.users_repository.delete(id)
         return True

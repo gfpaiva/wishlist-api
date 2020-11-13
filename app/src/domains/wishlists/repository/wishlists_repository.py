@@ -10,13 +10,19 @@ class WishlistsRepository(abc.ABC):
         self,
         id: str,
     ) -> Wishlist:
+        """
+        Find single wishlist by given id(uuid)
+        """
         pass
 
     @abc.abstractclassmethod
     def find_by_user_id(
         self,
         user_id: str,
-    ) -> Wishlist:
+    ) -> List[Wishlist]:
+        """
+        Find all wishlists for given user_id(uuid) and return it on list
+        """
         pass
 
     @abc.abstractclassmethod
@@ -26,6 +32,9 @@ class WishlistsRepository(abc.ABC):
         title: str,
         description: str,
     ) -> Wishlist:
+        """
+        Create new user. Required field title and description
+        """
         pass
 
     @abc.abstractclassmethod
@@ -35,6 +44,9 @@ class WishlistsRepository(abc.ABC):
         title: Optional[str],
         description: Optional[str],
     ) -> Wishlist:
+        """
+        Update wishlist by given id(uuid)
+        """
         pass
 
     @abc.abstractclassmethod
@@ -42,4 +54,7 @@ class WishlistsRepository(abc.ABC):
         self,
         id: str,
     ) -> bool:
+        """
+        Delete wishlist by given id(uuid)
+        """
         pass

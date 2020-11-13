@@ -9,6 +9,9 @@ from src.infra.db import db
 
 
 class User(Model):
+    """
+    Model for user in database. With fields id, name and email
+    """
     id = CharField(primary_key=True, null=False)
     name = CharField(null=False)
     email = CharField(null=False, unique=True)
@@ -19,16 +22,25 @@ class User(Model):
 
 
 class UserRequestBody(BaseModel):
+    """
+    Schema for http post request json body
+    """
     name: str
     email: str
 
 
 class UserUpdateRequestBody(BaseModel):
+    """
+    Schema for http patch request json body
+    """
     name: Optional[str]
     email: Optional[str]
 
 
-class UserResponseBody(BaseModel):
+class UserResponse(BaseModel):
+    """
+    Schema for single user http response
+    """
     id: str
     name: str
     email: str

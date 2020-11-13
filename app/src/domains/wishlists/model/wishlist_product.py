@@ -1,4 +1,3 @@
-from typing import Optional
 from peewee import (
     Model,
     CharField,
@@ -11,6 +10,10 @@ from src.domains.wishlists.model.wishlist import Wishlist
 
 
 class WishlistProduct(Model):
+    """
+    Model for wishlist products in database. With fields id, product_id
+    and wishlist as relationship with Wishlist model
+    """
     id = CharField(primary_key=True, null=False)
     wishlist = ForeignKeyField(
         Wishlist,
@@ -23,19 +26,3 @@ class WishlistProduct(Model):
     class Meta:
         table_name = 'wishlists_products'
         database = db
-
-
-# class WishlistRequestBody(BaseModel):
-#     title: str
-#     description: str
-
-
-# class UserUpdateRequestBody(BaseModel):
-#     name: Optional[str]
-#     email: Optional[str]
-
-
-# class UserResponseBody(BaseModel):
-#     id: str
-#     name: str
-#     email: str

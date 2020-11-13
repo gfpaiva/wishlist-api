@@ -9,6 +9,9 @@ class UsersRepository(abc.ABC):
     def find_all(
         self,
     ) -> List[User]:
+        """
+        Find all users and return it on list
+        """
         pass
 
     @abc.abstractclassmethod
@@ -16,6 +19,9 @@ class UsersRepository(abc.ABC):
         self,
         id: str,
     ) -> User:
+        """
+        Find single user by given id(uuid)
+        """
         pass
 
     @abc.abstractclassmethod
@@ -23,6 +29,9 @@ class UsersRepository(abc.ABC):
         self,
         email: str,
     ) -> User:
+        """
+        Find single user by given email string
+        """
         pass
 
     @abc.abstractclassmethod
@@ -31,6 +40,9 @@ class UsersRepository(abc.ABC):
         name: str,
         email: str,
     ) -> User:
+        """
+        Create new user. Required fields name and email
+        """
         pass
 
     @abc.abstractclassmethod
@@ -40,6 +52,9 @@ class UsersRepository(abc.ABC):
         name: Optional[str],
         email: Optional[str],
     ) -> User:
+        """
+        Update user by given id(uuid)
+        """
         pass
 
     @abc.abstractclassmethod
@@ -47,4 +62,7 @@ class UsersRepository(abc.ABC):
         self,
         id: str,
     ) -> bool:
+        """
+        Delete user by given id(uuid)
+        """
         pass
