@@ -9,7 +9,7 @@ from src.domains.products.repository.products_repository import (
 class FakeProductsRepository(ProductsRepository):
     def __init__(self):
         example_product = Product(
-            id='1',
+            id='1bf0f365-fbdd-4e21-9786-da459d78dd1f',
             title='Product',
             price=100.0,
             image='example.jpg',
@@ -17,7 +17,7 @@ class FakeProductsRepository(ProductsRepository):
             review_score=4.99
         )
         another_example_product = Product(
-            id='2',
+            id='958ec015-cfcf-258d-c6df-1721de0ab6ea',
             title='Product 2',
             price=299.9,
             image='example-2.jpg',

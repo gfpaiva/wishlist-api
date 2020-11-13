@@ -8,11 +8,11 @@ from src.exceptions.wishlist_exception import WishlistException
 class CreateWishlist:
     def __init__(
         self,
-        wishlists_repository,
-        users_repository,
+        wishlists_repository: WishlistsRepository,
+        users_repository: UsersRepository,
     ):
-        self.wishlists_repository: WishlistsRepository = wishlists_repository
-        self.users_repository: UsersRepository = users_repository
+        self.wishlists_repository = wishlists_repository
+        self.users_repository = users_repository
 
     def run(
         self,

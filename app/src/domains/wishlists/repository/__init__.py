@@ -10,12 +10,6 @@ from src.domains.wishlists.model.wishlist_product import WishlistProduct
 
 
 class DBWishlistsRepository(WishlistsRepository):
-    def find_all(
-        self,
-    ):
-        wishlists = Wishlist.select()
-        return wishlists
-
     def find_by_id(
         self,
         id,
@@ -81,6 +75,15 @@ class DBWishlistsProductsRepository(WishlistsProductsRepository):
     ):
         products = WishlistProduct.select().where(
             WishlistProduct.wishlist == wishlist_id
+        )
+        return products
+
+    def find_by_products_by_product_id(
+        self,
+        product_id: str,
+    ):
+        products = WishlistProduct.select().where(
+            WishlistProduct.product_id == product_id
         )
         return products
 

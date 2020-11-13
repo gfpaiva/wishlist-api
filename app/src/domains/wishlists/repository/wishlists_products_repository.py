@@ -13,6 +13,13 @@ class WishlistsProductsRepository(abc.ABC):
         pass
 
     @abc.abstractclassmethod
+    def find_by_products_by_product_id(
+        self,
+        product_id: str,
+    ) -> List[WishlistProduct]:
+        pass
+
+    @abc.abstractclassmethod
     def insert_product(
         self,
         wishlist_id: str,

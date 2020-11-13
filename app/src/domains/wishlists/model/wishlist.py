@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from peewee import (
     Model,
     CharField,
@@ -8,6 +8,7 @@ from pydantic import BaseModel
 
 from src.infra.db import db
 from src.domains.users.model.user import User
+from src.domains.products.model.product import Product
 
 
 class Wishlist(Model):
@@ -19,6 +20,7 @@ class Wishlist(Model):
         column_name='user_id',
         on_delete='CASCADE'
     )
+    products: List[Product] = []
 
     class Meta:
         table_name = 'wishlists'

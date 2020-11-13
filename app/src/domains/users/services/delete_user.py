@@ -3,8 +3,11 @@ from src.exceptions.user_exception import UserException
 
 
 class DeleteUser:
-    def __init__(self, users_repository):
-        self.users_repository: UsersRepository = users_repository
+    def __init__(
+        self,
+        users_repository: UsersRepository,
+    ):
+        self.users_repository = users_repository
 
     def run(
         self,
