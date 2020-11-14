@@ -1,7 +1,6 @@
 from typing import List
+from fastapi import APIRouter
 from playhouse.shortcuts import model_to_dict
-
-from src.infra.server import app
 
 from src.domains.users.repository import DBUsersRepository
 from src.domains.wishlists.repository import (
@@ -60,10 +59,13 @@ delete_product_wishlist_service = DeleteProductWishlist(
     wishlists_products_repository=wishlists_products_repository,
 )
 
+wishlist_router = APIRouter()
 
-@app.get(
+
+@wishlist_router.get(
     '/wishlist/{id}',
     response_model=WishlistProductsResponse,
+    tags=['wishlist'],
 )
 def show_wishlist(id: str):
     """
@@ -77,9 +79,10 @@ def show_wishlist(id: str):
     return wishlist_dict
 
 
-@app.patch(
+@wishlist_router.patch(
     '/wishlist/{id}',
     response_model=WishlistUserResponse,
+    tags=['wishlist'],
 )
 def update_wishlist(id: str, wishlist: WishlistUpdateRequestBody):
     """
@@ -94,9 +97,10 @@ def update_wishlist(id: str, wishlist: WishlistUpdateRequestBody):
     return model_to_dict(updated_wishlist)
 
 
-@app.delete(
+@wishlist_router.delete(
     '/wishlist/{id}',
     status_code=204,
+    tags=['wishlist'],
 )
 def delete_wishlist(id: str):
     """
@@ -106,9 +110,10 @@ def delete_wishlist(id: str):
     return
 
 
-@app.post(
+@wishlist_router.post(
     '/wishlist/{wishlist_id}/product/{product_id}',
     response_model=WishlistProductsResponse,
+    tags=['wishlist'],
 )
 def insert_product_wishlist(wishlist_id: str, product_id: str):
     """
@@ -126,9 +131,10 @@ def insert_product_wishlist(wishlist_id: str, product_id: str):
     return wishlist_dict
 
 
-@app.delete(
+@wishlist_router.delete(
     '/wishlist/{wishlist_id}/product/{product_id}',
     status_code=204,
+    tags=['wishlist'],
 )
 def delete_product_wishlist(wishlist_id: str, product_id: str):
     """
@@ -142,9 +148,10 @@ def delete_product_wishlist(wishlist_id: str, product_id: str):
     return
 
 
-@app.get(
+@wishlist_router.get(
     '/user/{user_id}/wishlist',
     response_model=List[WishlistResponse],
+    tags=['user', 'wishlist'],
 )
 def show_user_wishlists(user_id: str):
     """
@@ -162,9 +169,10 @@ def show_user_wishlists(user_id: str):
     return [wishlist for wishlist in wishlists.dicts()]
 
 
-@app.post(
+@wishlist_router.post(
     '/user/{user_id}/wishlist',
     response_model=WishlistUserResponse,
+    tags=['user', 'wishlist'],
 )
 def create_wishlist(user_id: str, wishlist: WishlistRequestBody):
     """

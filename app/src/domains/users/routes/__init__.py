@@ -1,7 +1,7 @@
 from typing import List
+from fastapi import APIRouter
 from playhouse.shortcuts import model_to_dict
 
-from src.infra.server import app
 from src.domains.users.repository import DBUsersRepository
 from src.domains.users.services.create_user import CreateUser
 from src.domains.users.services.update_user import UpdateUser
@@ -18,10 +18,13 @@ create_user_service = CreateUser(users_repository)
 update_user_service = UpdateUser(users_repository)
 delete_user_service = DeleteUser(users_repository)
 
+user_router = APIRouter()
 
-@app.get(
+
+@user_router.get(
     '/user',
     response_model=List[UserResponse],
+    tags=['user'],
 )
 def list_users():
     """
@@ -31,9 +34,10 @@ def list_users():
     return [user for user in users.dicts()]
 
 
-@app.post(
+@user_router.post(
     '/user',
     response_model=UserResponse,
+    tags=['user'],
 )
 def create_user(user: UserRequestBody):
     """
@@ -43,9 +47,10 @@ def create_user(user: UserRequestBody):
     return model_to_dict(new_user)
 
 
-@app.get(
+@user_router.get(
     '/user/{id}',
     response_model=UserResponse,
+    tags=['user'],
 )
 def show_user(id: str):
     """
@@ -60,9 +65,10 @@ def show_user(id: str):
     return model_to_dict(user)
 
 
-@app.patch(
+@user_router.patch(
     '/user/{id}',
     response_model=UserResponse,
+    tags=['user'],
 )
 def update_user(id: str, user: UserUpdateRequestBody):
     """
@@ -77,9 +83,10 @@ def update_user(id: str, user: UserUpdateRequestBody):
     return model_to_dict(updated_user)
 
 
-@app.delete(
+@user_router.delete(
     '/user/{id}',
     status_code=204,
+    tags=['user'],
 )
 def delete_user(id: str):
     """

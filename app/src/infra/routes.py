@@ -1,10 +1,8 @@
-from src.infra.server import app
+from fastapi import APIRouter
+
+root_router = APIRouter()
 
 
-@app.get('/')
+@root_router.get('/')
 def root():
     return 'OK'
-
-
-from src.domains.users.routes import *  # noqa # isort:skip
-from src.domains.wishlists.routes import *  # noqa # isort:skip
