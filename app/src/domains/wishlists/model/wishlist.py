@@ -30,7 +30,7 @@ class Wishlist(Model):
         column_name='user_id',
         on_delete='CASCADE'
     )
-    products: List[Product] = []
+    products: Optional[List[Product]] = []
 
     class Meta:
         table_name = 'wishlists'
@@ -57,6 +57,7 @@ class WishlistResponse(BaseModel):
     """
     Schema for single wishlist http response
     """
+    id: str
     title: str
     description: str
 

@@ -40,9 +40,11 @@ class ListWishlist:
             )
 
         products = (self.wishlists_produts_repository
-                    .find_by_products_by_wishlist_id(id))
+                    .find_products_by_wishlist_id(id))
 
         if products:
+            wishlist.products = []
+
             for product in products:
                 product_data = self.products_repository.find_by_id(
                     product.product_id

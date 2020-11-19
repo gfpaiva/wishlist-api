@@ -6,7 +6,7 @@ from src.domains.wishlists.model.wishlist_product import WishlistProduct
 
 class WishlistsProductsRepository(abc.ABC):
     @abc.abstractclassmethod
-    def find_by_products_by_wishlist_id(
+    def find_products_by_wishlist_id(
         self,
         wishlist_id: str,
     ) -> List[WishlistProduct]:
@@ -16,7 +16,7 @@ class WishlistsProductsRepository(abc.ABC):
         pass
 
     @abc.abstractclassmethod
-    def find_by_products_by_product_id(
+    def find_products_by_product_id(
         self,
         wishlist_id: str,
         product_id: str,

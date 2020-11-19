@@ -41,7 +41,7 @@ class InsertProductWishlist:
             )
 
         product = (self.wishlists_produts_repository
-                   .find_by_products_by_product_id(
+                   .find_products_by_product_id(
                        wishlist_id=wishlist_id,
                        product_id=product_id,
                    ))

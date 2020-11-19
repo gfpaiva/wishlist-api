@@ -1,3 +1,4 @@
+from dataclasses import asdict
 from typing import List
 from fastapi import APIRouter
 from playhouse.shortcuts import model_to_dict
@@ -74,7 +75,8 @@ def show_wishlist(id: str):
     """
     wishlist = list_wishlist_service.run(id)
     wishlist_dict = model_to_dict(wishlist)
-    wishlist_dict['products'] = wishlist.products
+    products_dict = [asdict(product) for product in wishlist.products]
+    wishlist_dict['products'] = products_dict
 
     return wishlist_dict
 

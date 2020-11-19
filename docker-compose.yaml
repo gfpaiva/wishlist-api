@@ -15,6 +15,19 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=wishlist
       - POSTGRES_PASSWORD=${DB_PASSWORD}
+  cache:
+    image: redis:alpine
+    restart: always
+    command: redis-server --requirepass ${CACHE_PASSWORD}
+    volumes:
+      - $PWD/redis-data:/var/lib/redis
+      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    networks:
+      - backnet
+    environment:
+      - REDIS_REPLICATION_MODE=master
   app:
     build: app
     restart: always
@@ -27,11 +40,15 @@ services:
       - frontnet
     depends_on:
       - db
+      - cache
     environment:
       - DB_NAME=${DB_NAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
+      - CACHE_HOST=${CACHE_HOST}
+      - CACHE_PORT=${CACHE_PORT}
+      - CACHE_PASSWORD=${CACHE_PASSWORD}
   web:
     build: web
     restart: always

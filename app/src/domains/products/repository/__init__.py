@@ -1,4 +1,7 @@
+from os import getenv
+import json
 import requests
+import redis
 from fastapi import HTTPException
 
 from src.domains.products.model.product import Product
@@ -6,16 +9,34 @@ from src.domains.products.repository.products_repository import (
     ProductsRepository
 )
 
-BASE_URL = 'http://challenge-api.luizalabs.com'
-
 
 class APIProductsRepository(ProductsRepository):
+    def __init__(self):
+        self.BASE_URL = 'http://challenge-api.luizalabs.com'
+        self.cache = redis.Redis(
+            host=getenv('CACHE_HOST', 'localhost'),
+            port=getenv('CACHE_PORT', 6379),
+            password=getenv('CACHE_PASSWORD', None),
+            db=0,
+        )
+        self.cache_key_prefix = 'product-api/'
+
     def find_by_page(
         self,
         page='1'
     ):
-        res = requests.get(f'{BASE_URL}/api/product/?page={page}')
-        data = res.json()
+        res = {}
+        cache_key = f'{self.cache_key_prefix}page:{page}'
+        res_cache = self.cache.get(cache_key)
+
+        if res_cache:
+            res_json = res_cache
+        else:
+            res = requests.get(f'{self.BASE_URL}/api/product/?page={page}')
+            res_json = res.text
+            self.cache.set(cache_key, res_json)
+
+        data = json.loads(res_json)
         products = data['products']
 
         if data:
@@ -36,11 +57,22 @@ class APIProductsRepository(ProductsRepository):
         self,
         id: str,
     ):
-        res = requests.get(f'{BASE_URL}/api/product/{id}/')
-        product = res.json()
+        res = None
+        cache_key = f'{self.cache_key_prefix}product:{id}'
+        res_cache = self.cache.get(cache_key)
+
+        if res_cache:
+            res_json = res_cache
+        else:
+            res = requests.get(f'{self.BASE_URL}/api/product/{id}/')
+            res_json = res.text
+            self.cache.set(cache_key, res_json)
+
+        product = json.loads(res_json)
 
         try:
-            res.raise_for_status()
+            if not res_cache:
+                res.raise_for_status()
 
             if product:
                 return Product(
