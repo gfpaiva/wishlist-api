@@ -1,3 +1,4 @@
+from src.domains.wishlists.model.wishlist import Wishlist
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
 )
@@ -25,7 +26,7 @@ class InsertProductWishlist:
         self,
         wishlist_id,
         product_id,
-    ):
+    ) -> Wishlist:
         """
         Service for insert products on wishlist.
         Checks if wishlist exists,

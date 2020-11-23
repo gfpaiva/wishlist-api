@@ -12,7 +12,7 @@ class DeleteUser:
     def run(
         self,
         id,
-    ):
+    ) -> bool:
         """
         Service for delete user by given id using users_repository.
         Checks if user exists before delete it.

@@ -1,3 +1,4 @@
+from src.domains.wishlists.model.wishlist import Wishlist
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
 )
@@ -24,7 +25,7 @@ class ListWishlist:
     def run(
         self,
         id,
-    ):
+    ) -> Wishlist:
         """
         Service for list single wishlist.
         Chekcs if wishlist exists.

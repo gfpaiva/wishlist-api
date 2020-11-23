@@ -57,3 +57,17 @@ CREATE TABLE public.wishlists_products (
 
 ALTER TABLE public.wishlists_products OWNER TO wishlist;
 GRANT ALL ON TABLE public.wishlists_products TO wishlist;
+
+CREATE TABLE public.auths (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	username varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+	CONSTRAINT auths_pkey PRIMARY KEY (id),
+	CONSTRAINT auths_un UNIQUE (username)
+);
+
+-- Permissions
+
+ALTER TABLE public.auths OWNER TO wishlist;
+GRANT ALL ON TABLE public.auths TO wishlist;
+

@@ -20,7 +20,7 @@ class DeleteProductWishlist:
         self,
         wishlist_id,
         product_id,
-    ):
+    ) -> bool:
         """
         Service for remove product from wishlist
         Cehcks if wishlist and product exists

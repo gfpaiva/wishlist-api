@@ -14,7 +14,7 @@ class DeleteWishlist:
     def run(
         self,
         id,
-    ):
+    ) -> bool:
         """
         Service for delete wishlist by given id
         Checks if wishlist exists

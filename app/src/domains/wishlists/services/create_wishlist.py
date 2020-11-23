@@ -1,3 +1,4 @@
+from src.domains.wishlists.model.wishlist import Wishlist
 from src.domains.users.repository.users_repository import UsersRepository
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
@@ -19,7 +20,7 @@ class CreateWishlist:
         user_id,
         title,
         description,
-    ):
+    ) -> Wishlist:
         """
         Service for create new wishlist.
         Checks required fields, and if user exists

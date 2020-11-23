@@ -1,3 +1,4 @@
+from src.domains.wishlists.model.wishlist import Wishlist
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
 )
@@ -16,7 +17,7 @@ class UpdateWishlist:
         id,
         title,
         description,
-    ):
+    ) -> Wishlist:
         """
         Service for update wishlist details.
         Checks required fields and if wishlist exists

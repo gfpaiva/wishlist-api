@@ -20,8 +20,8 @@ services:
     restart: always
     command: redis-server --requirepass ${CACHE_PASSWORD}
     volumes:
-      - $PWD/redis-data:/var/lib/redis
-      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+      - redis-data:/var/lib/redis
+      - redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - 6379:6379
     networks:
@@ -60,6 +60,8 @@ services:
       - app
 volumes:
   db-data:
+  redis-data:
+  redis.conf:
 networks:
   backnet:
   frontnet:

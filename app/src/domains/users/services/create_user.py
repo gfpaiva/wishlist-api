@@ -1,3 +1,4 @@
+from src.domains.users.model.user import User
 from src.domains.users.repository.users_repository import UsersRepository
 from src.exceptions.user_exception import UserException
 
@@ -13,7 +14,7 @@ class CreateUser:
         self,
         name,
         email,
-    ):
+    ) -> User:
         """
         Service for create new user using users_repository.
         Checks required fields

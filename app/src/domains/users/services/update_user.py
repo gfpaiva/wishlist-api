@@ -1,3 +1,4 @@
+from src.domains.users.model.user import User
 from src.domains.users.repository.users_repository import UsersRepository
 from src.exceptions.user_exception import UserException
 
@@ -14,7 +15,7 @@ class UpdateUser:
         id,
         name,
         email,
-    ):
+    ) -> User:
         """
         Service for update user by given id using users_repository.
         Checks required fields and if is updating user email,
