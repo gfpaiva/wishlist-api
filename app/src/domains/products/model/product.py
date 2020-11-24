@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import (
+    BaseModel,
+    HttpUrl,
+    PositiveFloat,
+)
 
 
 @dataclass
@@ -19,7 +23,7 @@ class ProductResponse(BaseModel):
     """
     id: str
     title: str
-    price: float
-    image: str
+    price: PositiveFloat
+    image: HttpUrl
     brand: str
-    review_score: Optional[float]
+    review_score: Optional[PositiveFloat]

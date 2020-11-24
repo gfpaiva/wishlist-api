@@ -3,7 +3,11 @@ from peewee import (
     Model,
     CharField,
 )
-from pydantic import BaseModel
+from pydantic import (
+    BaseModel,
+    EmailStr,
+    UUID4,
+)
 
 from src.infra.db import db
 
@@ -26,7 +30,7 @@ class UserRequestBody(BaseModel):
     Schema for http post request json body
     """
     name: str
-    email: str
+    email: EmailStr
 
 
 class UserUpdateRequestBody(BaseModel):
@@ -34,13 +38,13 @@ class UserUpdateRequestBody(BaseModel):
     Schema for http patch request json body
     """
     name: Optional[str]
-    email: Optional[str]
+    email: Optional[EmailStr]
 
 
 class UserResponse(BaseModel):
     """
     Schema for single user http response
     """
-    id: str
+    id: UUID4
     name: str
-    email: str
+    email: EmailStr

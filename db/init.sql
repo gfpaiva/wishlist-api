@@ -71,3 +71,5 @@ CREATE TABLE public.auths (
 ALTER TABLE public.auths OWNER TO wishlist;
 GRANT ALL ON TABLE public.auths TO wishlist;
 
+INSERT INTO public.auths (username,"password")
+	VALUES ('wishlist','$2b$12$RMkWBV.ye3L2/q/I/MMTmeAUTL5GNiHC9ic8dHA1o1w1CQieQW1XW');

@@ -1,3 +1,4 @@
+from uuid import UUID
 from typing import List
 from fastapi import APIRouter
 from playhouse.shortcuts import model_to_dict
@@ -52,7 +53,7 @@ def create_user(user: UserRequestBody):
     response_model=UserResponse,
     tags=['user'],
 )
-def show_user(id: str):
+def show_user(id: UUID):
     """
     Show specific user by given id(uuid)
     """
@@ -70,7 +71,7 @@ def show_user(id: str):
     response_model=UserResponse,
     tags=['user'],
 )
-def update_user(id: str, user: UserUpdateRequestBody):
+def update_user(id: UUID, user: UserUpdateRequestBody):
     """
     Update specific user by given id(uuid).
     Can update one or both fields user/email
@@ -88,7 +89,7 @@ def update_user(id: str, user: UserUpdateRequestBody):
     status_code=204,
     tags=['user'],
 )
-def delete_user(id: str):
+def delete_user(id: UUID):
     """
     Delete specific user by given id(uuid).
     """

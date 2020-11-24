@@ -1,3 +1,4 @@
+from uuid import UUID
 from dataclasses import asdict
 from typing import List
 from fastapi import APIRouter
@@ -68,7 +69,7 @@ wishlist_router = APIRouter()
     response_model=WishlistProductsResponse,
     tags=['wishlist'],
 )
-def show_wishlist(id: str):
+def show_wishlist(id: UUID):
     """
     Show specific wishlist by given id(uuid).
     Return complete data with user and product details
@@ -86,7 +87,7 @@ def show_wishlist(id: str):
     response_model=WishlistUserResponse,
     tags=['wishlist'],
 )
-def update_wishlist(id: str, wishlist: WishlistUpdateRequestBody):
+def update_wishlist(id: UUID, wishlist: WishlistUpdateRequestBody):
     """
     Update specific wishlist by given id(uuid).
     Can update one or both fields title/description
@@ -104,7 +105,7 @@ def update_wishlist(id: str, wishlist: WishlistUpdateRequestBody):
     status_code=204,
     tags=['wishlist'],
 )
-def delete_wishlist(id: str):
+def delete_wishlist(id: UUID):
     """
     Delete specific wishlist by given id(uuid).
     """
@@ -117,7 +118,7 @@ def delete_wishlist(id: str):
     response_model=WishlistProductsResponse,
     tags=['wishlist'],
 )
-def insert_product_wishlist(wishlist_id: str, product_id: str):
+def insert_product_wishlist(wishlist_id: UUID, product_id: str):
     """
     Add one product into a specific wishlist by given product_id(uuid)
     and wishlist_id(uuid).
@@ -128,7 +129,8 @@ def insert_product_wishlist(wishlist_id: str, product_id: str):
         product_id=product_id,
     )
     wishlist_dict = model_to_dict(wishlist)
-    wishlist_dict['products'] = wishlist.products
+    products_dict = [asdict(product) for product in wishlist.products]
+    wishlist_dict['products'] = products_dict
 
     return wishlist_dict
 
@@ -138,7 +140,7 @@ def insert_product_wishlist(wishlist_id: str, product_id: str):
     status_code=204,
     tags=['wishlist'],
 )
-def delete_product_wishlist(wishlist_id: str, product_id: str):
+def delete_product_wishlist(wishlist_id: UUID, product_id: str):
     """
     Remove product from specific wishlist by given product_id(uuid)
     and wishlist_id(uuid).
@@ -155,7 +157,7 @@ def delete_product_wishlist(wishlist_id: str, product_id: str):
     response_model=List[WishlistResponse],
     tags=['user', 'wishlist'],
 )
-def show_user_wishlists(user_id: str):
+def show_user_wishlists(user_id: UUID):
     """
     List all wishlists from specific user by given user_id(uuid).
     """
@@ -176,7 +178,7 @@ def show_user_wishlists(user_id: str):
     response_model=WishlistUserResponse,
     tags=['user', 'wishlist'],
 )
-def create_wishlist(user_id: str, wishlist: WishlistRequestBody):
+def create_wishlist(user_id: UUID, wishlist: WishlistRequestBody):
     """
     Create a new wishlist for specific user
     """

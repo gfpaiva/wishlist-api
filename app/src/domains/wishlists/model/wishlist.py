@@ -4,7 +4,10 @@ from peewee import (
     CharField,
     ForeignKeyField,
 )
-from pydantic import BaseModel
+from pydantic import (
+    BaseModel,
+    UUID4,
+)
 
 from src.infra.db import db
 from src.domains.users.model.user import (
@@ -57,7 +60,7 @@ class WishlistResponse(BaseModel):
     """
     Schema for single wishlist http response
     """
-    id: str
+    id: UUID4
     title: str
     description: str
 
@@ -66,6 +69,7 @@ class WishlistUserResponse(BaseModel):
     """
     Schema for single wishlist with user data http response
     """
+    id: UUID4
     title: str
     description: str
     user: UserResponse
