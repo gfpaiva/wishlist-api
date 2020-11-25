@@ -1,0 +1,12 @@
+[run]
+omit =
+    app/tests/*
+    app/src/infra/*
+    app/src/exceptions/*
+    app/src/domains/*/model/*
+    app/src/domains/*/repository/*
+    app/src/domains/*/routes/*
+    app/src/version.py
+
+[tool:pytest]
+addopts = --cov=app --cov-report html

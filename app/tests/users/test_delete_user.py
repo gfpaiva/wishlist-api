@@ -29,7 +29,7 @@ def test_should_delete_user(delete_user):
     assert deleted is True
 
 
-def test_should_not_update_user_and_raise_for_invalid_user_id(
+def test_should_not_delete_user_and_raise_for_invalid_user_id(
     delete_user,
 ):
     with pytest.raises(UserException):
