@@ -33,6 +33,11 @@ def test_should_create_and_return_new_wishlist(create_wishlist):
         title='title test',
         description='description test'
     )
+    create_wishlist_service.run(
+        user_id=created_user.id,
+        title='title test',
+        description='description test'
+    )
 
     assert (
         type(wishlist.id) is uuid.UUID

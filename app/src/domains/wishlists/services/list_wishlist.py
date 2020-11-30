@@ -15,11 +15,11 @@ class ListWishlist:
     def __init__(
         self,
         wishlists_repository: WishlistsRepository,
-        wishlists_produts_repository: WishlistsProductsRepository,
+        wishlists_products_repository: WishlistsProductsRepository,
         products_repository: ProductsRepository,
     ):
         self.wishlists_repository = wishlists_repository
-        self.wishlists_produts_repository = wishlists_produts_repository
+        self.wishlists_products_repository = wishlists_products_repository
         self.products_repository = products_repository
 
     def run(
@@ -40,7 +40,7 @@ class ListWishlist:
                 detail=f'Wishlist {id} does not exists'
             )
 
-        products = (self.wishlists_produts_repository
+        products = (self.wishlists_products_repository
                     .find_products_by_wishlist_id(id))
 
         if products:

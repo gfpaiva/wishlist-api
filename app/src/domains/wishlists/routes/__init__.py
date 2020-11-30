@@ -42,7 +42,7 @@ create_wishlist_service = CreateWishlist(
 )
 list_wishlist_service = ListWishlist(
     wishlists_repository=wishlists_repository,
-    wishlists_produts_repository=wishlists_products_repository,
+    wishlists_products_repository=wishlists_products_repository,
     products_repository=products_repository
 )
 update_wishlist_service = UpdateWishlist(
@@ -53,7 +53,7 @@ delete_wishlist_service = DeleteWishlist(
 )
 insert_product_wishlist_service = InsertProductWishlist(
     wishlists_repository=wishlists_repository,
-    wishlists_produts_repository=wishlists_products_repository,
+    wishlists_products_repository=wishlists_products_repository,
     products_repository=products_repository
 )
 delete_product_wishlist_service = DeleteProductWishlist(

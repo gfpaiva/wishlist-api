@@ -15,11 +15,11 @@ class InsertProductWishlist:
     def __init__(
         self,
         wishlists_repository: WishlistsRepository,
-        wishlists_produts_repository: WishlistsProductsRepository,
+        wishlists_products_repository: WishlistsProductsRepository,
         products_repository: ProductsRepository,
     ):
         self.wishlists_repository = wishlists_repository
-        self.wishlists_produts_repository = wishlists_produts_repository
+        self.wishlists_products_repository = wishlists_products_repository
         self.products_repository = products_repository
 
     def run(
@@ -41,7 +41,7 @@ class InsertProductWishlist:
                 detail=f'Wishlist {wishlist_id} does not exists'
             )
 
-        product = (self.wishlists_produts_repository
+        product = (self.wishlists_products_repository
                    .find_products_by_product_id(
                        wishlist_id=wishlist_id,
                        product_id=product_id,
@@ -61,7 +61,7 @@ class InsertProductWishlist:
                 detail=f'Product {product_id} does not exists'
             )
 
-        self.wishlists_produts_repository.insert_product(
+        self.wishlists_products_repository.insert_product(
             wishlist_id=wishlist_id,
             product_id=product_id,
         )

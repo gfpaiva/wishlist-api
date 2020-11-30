@@ -41,7 +41,7 @@ class FakeWishlistsRepository(WishlistsRepository):
             id=uuid.uuid4(),
             user_id=user_id,
             title=title,
-            description=description
+            description=description,
         )
         self.wishlists.append(wishlist)
         return wishlist
