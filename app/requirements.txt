@@ -10,6 +10,7 @@ python-multipart==0.0.5
 fastapi==0.61.1
 pytest==6.1.1
 pytest-cov==2.5.1
+pycodestyle==2.6.0
 bcrypt==3.2.0
 cryptography==3.2.1
 python-jose==3.2.0
