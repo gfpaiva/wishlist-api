@@ -3,7 +3,6 @@ from peewee import (
     CharField,
     ForeignKeyField,
 )
-from pydantic import BaseModel
 
 from src.infra.db import db
 from src.domains.wishlists.model.wishlist import Wishlist

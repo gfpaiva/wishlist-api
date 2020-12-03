@@ -4,7 +4,7 @@ install:
 	pip install -r app/requirements.txt
 
 lint: 
-	pycodestyle --config=.pycodestyle app
+	flake8 app/src
 
 test: 
 	pytest
