@@ -1,9 +1,9 @@
-from os import getenv
 import json
 import requests
-import redis
+
 from fastapi import HTTPException
 
+from src.infra.cache import redis
 from src.domains.products.model.product import Product
 from src.domains.products.repository.products_repository import (
     ProductsRepository
@@ -13,12 +13,7 @@ from src.domains.products.repository.products_repository import (
 class APIProductsRepository(ProductsRepository):
     def __init__(self):
         self.BASE_URL = 'http://challenge-api.luizalabs.com'
-        self.cache = redis.Redis(
-            host=getenv('CACHE_HOST', 'localhost'),
-            port=getenv('CACHE_PORT', 6379),
-            password=getenv('CACHE_PASSWORD', None),
-            db=0,
-        )
+        self.cache = redis
         self.cache_key_prefix = 'product-api/'
 
     def find_by_page(
