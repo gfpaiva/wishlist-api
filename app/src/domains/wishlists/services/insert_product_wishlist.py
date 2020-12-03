@@ -24,8 +24,8 @@ class InsertProductWishlist:
 
     def run(
         self,
-        wishlist_id,
-        product_id,
+        wishlist_id: str,
+        product_id: str,
     ) -> Wishlist:
         """
         Service for insert products on wishlist.

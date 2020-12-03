@@ -12,9 +12,9 @@ class UpdateUser:
 
     def run(
         self,
-        id,
-        name,
-        email,
+        id: str,
+        name: str,
+        email: str,
     ) -> User:
         """
         Service for update user by given id using users_repository.

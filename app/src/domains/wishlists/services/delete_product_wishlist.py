@@ -18,8 +18,8 @@ class DeleteProductWishlist:
 
     def run(
         self,
-        wishlist_id,
-        product_id,
+        wishlist_id: str,
+        product_id: str,
     ) -> bool:
         """
         Service for remove product from wishlist

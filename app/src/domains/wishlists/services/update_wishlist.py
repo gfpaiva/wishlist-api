@@ -14,9 +14,9 @@ class UpdateWishlist:
 
     def run(
         self,
-        id,
-        title,
-        description,
+        id: str,
+        title: str,
+        description: str,
     ) -> Wishlist:
         """
         Service for update wishlist details.

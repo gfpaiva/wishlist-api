@@ -12,8 +12,8 @@ class CreateUser:
 
     def run(
         self,
-        name,
-        email,
+        name: str,
+        email: str,
     ) -> User:
         """
         Service for create new user using users_repository.

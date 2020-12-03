@@ -13,7 +13,7 @@ class DeleteWishlist:
 
     def run(
         self,
-        id,
+        id: str,
     ) -> bool:
         """
         Service for delete wishlist by given id

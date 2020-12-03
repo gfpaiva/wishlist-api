@@ -17,9 +17,9 @@ class CreateWishlist:
 
     def run(
         self,
-        user_id,
-        title,
-        description,
+        user_id: str,
+        title: str,
+        description: str,
     ) -> Wishlist:
         """
         Service for create new wishlist.

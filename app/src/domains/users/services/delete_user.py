@@ -11,7 +11,7 @@ class DeleteUser:
 
     def run(
         self,
-        id,
+        id: str,
     ) -> bool:
         """
         Service for delete user by given id using users_repository.

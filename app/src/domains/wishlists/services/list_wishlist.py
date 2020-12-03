@@ -24,7 +24,7 @@ class ListWishlist:
 
     def run(
         self,
-        id,
+        id: str,
     ) -> Wishlist:
         """
         Service for list single wishlist.

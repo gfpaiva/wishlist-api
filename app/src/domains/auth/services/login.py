@@ -17,8 +17,8 @@ class Login:
 
     def run(
         self,
-        username,
-        password,
+        username: str,
+        password: str,
     ) -> str:
         """
         Service for login user and get a token
