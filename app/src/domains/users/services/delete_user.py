@@ -11,19 +11,19 @@ class DeleteUser:
 
     def run(
         self,
-        id: str,
+        user_id: str,
     ) -> bool:
         """
         Service for delete user by given id using users_repository.
         Checks if user exists before delete it.
         """
-        user = self.users_repository.find_by_id(id)
+        user = self.users_repository.find_by_id(user_id)
 
         if not user:
             raise UserException(
                 status_code=404,
-                detail=f'User {id} does not exists'
+                detail=f'User {user_id} does not exists'
             )
 
-        self.users_repository.delete(id)
+        self.users_repository.delete(user_id)
         return True

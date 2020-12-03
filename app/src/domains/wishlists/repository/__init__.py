@@ -12,9 +12,9 @@ from src.domains.wishlists.model.wishlist_product import WishlistProduct
 class DBWishlistsRepository(WishlistsRepository):
     def find_by_id(
         self,
-        id,
+        wishlist_id,
     ):
-        wishlist = Wishlist.select().where(Wishlist.id == id)
+        wishlist = Wishlist.select().where(Wishlist.id == wishlist_id)
         return wishlist.get() if wishlist else None
 
     def find_by_user_id(
@@ -44,11 +44,11 @@ class DBWishlistsRepository(WishlistsRepository):
 
     def update(
         self,
-        id,
+        wishlist_id,
         title,
         description,
     ):
-        wishlist = Wishlist.get_by_id(id)
+        wishlist = Wishlist.get_by_id(wishlist_id)
 
         if title:
             wishlist.title = title
@@ -60,10 +60,10 @@ class DBWishlistsRepository(WishlistsRepository):
 
     def delete(
         self,
-        id,
+        wishlist_id,
     ):
         Wishlist.delete().where(
-            Wishlist.id == id
+            Wishlist.id == wishlist_id
         ).execute()
         return True
 

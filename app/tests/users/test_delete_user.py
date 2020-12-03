@@ -24,7 +24,7 @@ def delete_user():
 
 def test_should_delete_user(delete_user):
     delete_user_service, created_user = delete_user
-    deleted = delete_user_service.run(id=created_user.id)
+    deleted = delete_user_service.run(user_id=created_user.id)
 
     assert deleted is True
 
@@ -34,4 +34,4 @@ def test_should_not_delete_user_and_raise_for_invalid_user_id(
 ):
     with pytest.raises(UserException):
         delete_user_service = delete_user[0]
-        delete_user_service.run(id=uuid.uuid4())
+        delete_user_service.run(user_id=uuid.uuid4())

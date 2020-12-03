@@ -34,7 +34,7 @@ def update_wishlist():
 def test_should_update_and_return_wishlist(update_wishlist):
     update_wishlist_service, created_wishlist = update_wishlist
     wishlist = update_wishlist_service.run(
-        id=created_wishlist.id,
+        wishlist_id=created_wishlist.id,
         title='title test2',
         description='description test2',
     )
@@ -51,7 +51,7 @@ def test_should_not_update_wishlist_and_raise_for_invalid_data(
     with pytest.raises(WishlistException):
         update_wishlist_service, created_wishlist = update_wishlist
         update_wishlist_service.run(
-            id=created_wishlist.id,
+            wishlist_id=created_wishlist.id,
             title=None,
             description=None,
         )
@@ -63,7 +63,7 @@ def test_should_not_update_wishlist_and_raise_for_invalid_wishlist_id(
     with pytest.raises(WishlistException):
         update_wishlist_service = update_wishlist[0]
         update_wishlist_service.run(
-            id='test-id',
+            wishlist_id='test-id',
             title='title test2',
             description='description test2',
         )

@@ -23,10 +23,10 @@ class FakeUsersRepository(UsersRepository):
 
     def find_by_id(
         self,
-        id,
+        user_id,
     ):
         return next(
-            (user for user in self.users if user.id == id), None
+            (user for user in self.users if user.id == user_id), None
         )
 
     def find_by_email(
@@ -39,14 +39,14 @@ class FakeUsersRepository(UsersRepository):
 
     def update(
         self,
-        id,
+        user_id,
         name,
         email,
     ):
         find_user = None
 
         for user in self.users:
-            if user.id == id:
+            if user.id == user_id:
                 if name:
                     user.name = name
                 if email:
@@ -57,7 +57,7 @@ class FakeUsersRepository(UsersRepository):
 
     def delete(
         self,
-        id,
+        user_id,
     ):
-        self.users = [user for user in self.users if not (user.id == id)]
+        self.users = [user for user in self.users if not (user.id == user_id)]
         return True

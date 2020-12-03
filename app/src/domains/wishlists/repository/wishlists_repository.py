@@ -8,7 +8,7 @@ class WishlistsRepository(abc.ABC):
     @abc.abstractclassmethod
     def find_by_id(
         self,
-        id: str,
+        wishlist_id: str,
     ) -> Wishlist:
         """
         Find single wishlist by given id(uuid)
@@ -40,7 +40,7 @@ class WishlistsRepository(abc.ABC):
     @abc.abstractclassmethod
     def update(
         self,
-        id: str,
+        wishlist_id: str,
         title: Optional[str],
         description: Optional[str],
     ) -> Wishlist:
@@ -52,7 +52,7 @@ class WishlistsRepository(abc.ABC):
     @abc.abstractclassmethod
     def delete(
         self,
-        id: str,
+        wishlist_id: str,
     ) -> bool:
         """
         Delete wishlist by given id(uuid)

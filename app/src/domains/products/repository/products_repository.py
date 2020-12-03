@@ -18,7 +18,7 @@ class ProductsRepository(abc.ABC):
     @abc.abstractclassmethod
     def find_by_id(
         self,
-        id: str,
+        product_id: str,
     ) -> Product:
         """
         Find single product by given id(uuid)

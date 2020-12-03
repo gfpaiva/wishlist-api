@@ -12,7 +12,7 @@ class UpdateUser:
 
     def run(
         self,
-        id: str,
+        user_id: str,
         name: str,
         email: str,
     ) -> User:
@@ -27,12 +27,12 @@ class UpdateUser:
                 detail='You must provide name or email'
             )
 
-        user = self.users_repository.find_by_id(id)
+        user = self.users_repository.find_by_id(user_id)
 
         if not user:
             raise UserException(
                 status_code=404,
-                detail=f'User {id} does not exists'
+                detail=f'User {user_id} does not exists'
             )
 
         if email and email != user.email:
@@ -44,5 +44,9 @@ class UpdateUser:
                     detail=f'User with email {email} alredy exists'
                 )
 
-        user = self.users_repository.update(id=id, name=name, email=email)
+        user = self.users_repository.update(
+            user_id=user_id,
+            name=name,
+            email=email
+        )
         return user

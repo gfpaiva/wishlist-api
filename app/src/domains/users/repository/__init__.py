@@ -11,9 +11,9 @@ class DBUsersRepository(UsersRepository):
 
     def find_by_id(
         self,
-        id: str,
+        user_id: str,
     ):
-        user = User.select().where(User.id == id)
+        user = User.select().where(User.id == user_id)
         return user.get() if user else None
 
     def find_by_email(
@@ -34,11 +34,11 @@ class DBUsersRepository(UsersRepository):
 
     def update(
         self,
-        id,
+        user_id,
         name,
         email,
     ):
-        user = User.get_by_id(id)
+        user = User.get_by_id(user_id)
 
         if name:
             user.name = name
@@ -50,7 +50,7 @@ class DBUsersRepository(UsersRepository):
 
     def delete(
         self,
-        id,
+        user_id,
     ):
-        User.delete().where(User.id == id).execute()
+        User.delete().where(User.id == user_id).execute()
         return True

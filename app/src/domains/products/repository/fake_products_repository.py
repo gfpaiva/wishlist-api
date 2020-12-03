@@ -38,9 +38,9 @@ class FakeProductsRepository(ProductsRepository):
 
     def find_by_id(
         self,
-        id: str,
+        product_id: str,
     ) -> Product:
         return next(
-            (product for product in self.products if product.id == id),
+            (product for product in self.products if product.id == product_id),
             None,
         )

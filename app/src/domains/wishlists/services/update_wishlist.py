@@ -14,7 +14,7 @@ class UpdateWishlist:
 
     def run(
         self,
-        id: str,
+        wishlist_id: str,
         title: str,
         description: str,
     ) -> Wishlist:
@@ -28,16 +28,16 @@ class UpdateWishlist:
                 detail='You must provide title or description'
             )
 
-        wishlist = self.wishlists_repository.find_by_id(id)
+        wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
             raise WishlistException(
                 status_code=404,
-                detail=f'Wishlist {id} does not exists'
+                detail=f'Wishlist {wishlist_id} does not exists'
             )
 
         wishlist = self.wishlists_repository.update(
-            id=id,
+            wishlist_id=wishlist_id,
             title=title,
             description=description,
         )

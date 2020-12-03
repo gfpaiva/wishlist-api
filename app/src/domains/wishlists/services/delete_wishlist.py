@@ -13,19 +13,19 @@ class DeleteWishlist:
 
     def run(
         self,
-        id: str,
+        wishlist_id: str,
     ) -> bool:
         """
         Service for delete wishlist by given id
         Checks if wishlist exists
         """
-        wishlist = self.wishlists_repository.find_by_id(id)
+        wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
             raise WishlistException(
                 status_code=404,
-                detail=f'Wishlist {id} does not exists'
+                detail=f'Wishlist {wishlist_id} does not exists'
             )
 
-        self.wishlists_repository.delete(id)
+        self.wishlists_repository.delete(wishlist_id)
         return True

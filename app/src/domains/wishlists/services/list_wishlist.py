@@ -24,7 +24,7 @@ class ListWishlist:
 
     def run(
         self,
-        id: str,
+        wishlist_id: str,
     ) -> Wishlist:
         """
         Service for list single wishlist.
@@ -32,16 +32,16 @@ class ListWishlist:
         If wishlist has products take products data
         from products_repository (external service) and append on return data
         """
-        wishlist = self.wishlists_repository.find_by_id(id)
+        wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
             raise WishlistException(
                 status_code=404,
-                detail=f'Wishlist {id} does not exists'
+                detail=f'Wishlist {wishlist_id} does not exists'
             )
 
         products = (self.wishlists_products_repository
-                    .find_products_by_wishlist_id(id))
+                    .find_products_by_wishlist_id(wishlist_id))
 
         if products:
             wishlist.products = []

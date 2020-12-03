@@ -25,7 +25,7 @@ def update_user():
 def test_should_update_and_return_user(update_user):
     update_user_service, created_user = update_user
     user = update_user_service.run(
-        id=created_user.id,
+        user_id=created_user.id,
         name='test2',
         email='test2@test.com',
     )
@@ -39,7 +39,7 @@ def test_should_not_update_user_and_raise_for_invalid_data(
     with pytest.raises(UserException):
         update_user_service, created_user = update_user
         update_user_service.run(
-            id=created_user.id,
+            user_id=created_user.id,
             name=None,
             email=None,
         )
@@ -51,7 +51,7 @@ def test_should_not_update_user_and_raise_for_invalid_user_id(
     with pytest.raises(UserException):
         update_user_service = update_user[0]
         update_user_service.run(
-            id=uuid.uuid4(),
+            user_id=uuid.uuid4(),
             name='test2',
             email='test2@test.com',
         )
@@ -69,7 +69,7 @@ def test_should_not_update_user_and_raise_for_email_alredy_in_repository(
     with pytest.raises(UserException):
         update_user_service, created_user = update_user
         update_user_service.run(
-            id=created_user.id,
+            user_id=created_user.id,
             name='test3',
             email='test3@test.com',
         )

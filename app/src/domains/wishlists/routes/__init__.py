@@ -69,12 +69,12 @@ wishlist_router = APIRouter()
     response_model=WishlistProductsResponse,
     tags=['wishlist'],
 )
-def show_wishlist(id: UUID):
+def show_wishlist(wishlist_id: UUID):
     """
     Show specific wishlist by given id(uuid).
     Return complete data with user and product details
     """
-    wishlist = list_wishlist_service.run(id)
+    wishlist = list_wishlist_service.run(wishlist_id)
     wishlist_dict = model_to_dict(wishlist)
     products_dict = [asdict(product) for product in wishlist.products]
     wishlist_dict['products'] = products_dict
@@ -87,13 +87,13 @@ def show_wishlist(id: UUID):
     response_model=WishlistUserResponse,
     tags=['wishlist'],
 )
-def update_wishlist(id: UUID, wishlist: WishlistUpdateRequestBody):
+def update_wishlist(wishlist_id: UUID, wishlist: WishlistUpdateRequestBody):
     """
     Update specific wishlist by given id(uuid).
     Can update one or both fields title/description
     """
     updated_wishlist = update_wishlist_service.run(
-        id=id,
+        wishlist_id=wishlist_id,
         title=wishlist.title,
         description=wishlist.description,
     )
@@ -105,11 +105,11 @@ def update_wishlist(id: UUID, wishlist: WishlistUpdateRequestBody):
     status_code=204,
     tags=['wishlist'],
 )
-def delete_wishlist(id: UUID):
+def delete_wishlist(wishlist_id: UUID):
     """
     Delete specific wishlist by given id(uuid).
     """
-    delete_wishlist_service.run(id)
+    delete_wishlist_service.run(wishlist_id)
     return
 
 

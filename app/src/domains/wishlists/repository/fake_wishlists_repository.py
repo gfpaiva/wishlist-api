@@ -13,10 +13,10 @@ class FakeWishlistsRepository(WishlistsRepository):
 
     def find_by_id(
         self,
-        id,
+        wishlist_id,
     ):
         return next(
-            (wishlist for wishlist in self.wishlists if wishlist.id == id),
+            (wishlist for wishlist in self.wishlists if wishlist.id == wishlist_id),
             None,
         )
 
@@ -48,14 +48,14 @@ class FakeWishlistsRepository(WishlistsRepository):
 
     def update(
         self,
-        id,
+        wishlist_id,
         title,
         description,
     ):
         find_wishlist = None
 
         for wishlist in self.wishlists:
-            if wishlist.id == id:
+            if wishlist.id == wishlist_id:
                 if title:
                     wishlist.title = title
                 if description:
@@ -66,9 +66,9 @@ class FakeWishlistsRepository(WishlistsRepository):
 
     def delete(
         self,
-        id,
+        wishlist_id,
     ):
         self.wishlists = [
-            wishlist for wishlist in self.wishlists if not (wishlist.id == id)
+            wishlist for wishlist in self.wishlists if not (wishlist.id == wishlist_id)
         ]
         return True

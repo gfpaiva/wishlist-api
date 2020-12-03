@@ -17,7 +17,7 @@ class UsersRepository(abc.ABC):
     @abc.abstractclassmethod
     def find_by_id(
         self,
-        id: str,
+        user_id: str,
     ) -> User:
         """
         Find single user by given id(uuid)
@@ -48,7 +48,7 @@ class UsersRepository(abc.ABC):
     @abc.abstractclassmethod
     def update(
         self,
-        id: str,
+        user_id: str,
         name: Optional[str],
         email: Optional[str],
     ) -> User:
@@ -60,7 +60,7 @@ class UsersRepository(abc.ABC):
     @abc.abstractclassmethod
     def delete(
         self,
-        id: str,
+        user_id: str,
     ) -> bool:
         """
         Delete user by given id(uuid)

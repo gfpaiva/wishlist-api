@@ -53,15 +53,15 @@ def create_user(user: UserRequestBody):
     response_model=UserResponse,
     tags=['user'],
 )
-def show_user(id: UUID):
+def show_user(user_id: UUID):
     """
     Show specific user by given id(uuid)
     """
-    user = users_repository.find_by_id(id)
+    user = users_repository.find_by_id(user_id)
     if not user:
         raise UserException(
             status_code=404,
-            detail=f'User {id} does not exists'
+            detail=f'User {user_id} does not exists'
         )
     return model_to_dict(user)
 
@@ -71,13 +71,13 @@ def show_user(id: UUID):
     response_model=UserResponse,
     tags=['user'],
 )
-def update_user(id: UUID, user: UserUpdateRequestBody):
+def update_user(user_id: UUID, user: UserUpdateRequestBody):
     """
     Update specific user by given id(uuid).
     Can update one or both fields user/email
     """
     updated_user = update_user_service.run(
-        id=id,
+        user_id=user_id,
         name=user.name,
         email=user.email,
     )
@@ -89,9 +89,9 @@ def update_user(id: UUID, user: UserUpdateRequestBody):
     status_code=204,
     tags=['user'],
 )
-def delete_user(id: UUID):
+def delete_user(user_id: UUID):
     """
     Delete specific user by given id(uuid).
     """
-    delete_user_service.run(id)
+    delete_user_service.run(user_id)
     return

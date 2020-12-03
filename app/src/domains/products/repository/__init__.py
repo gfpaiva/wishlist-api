@@ -50,16 +50,16 @@ class APIProductsRepository(ProductsRepository):
 
     def find_by_id(
         self,
-        id: str,
+        product_id: str,
     ):
         res = None
-        cache_key = f'{self.cache_key_prefix}product:{id}'
+        cache_key = f'{self.cache_key_prefix}product:{product_id}'
         res_cache = self.cache.get(cache_key)
 
         if res_cache:
             res_json = res_cache
         else:
-            res = requests.get(f'{self.BASE_URL}/api/product/{id}/')
+            res = requests.get(f'{self.BASE_URL}/api/product/{product_id}/')
             res_json = res.text
             self.cache.set(cache_key, res_json)
 
