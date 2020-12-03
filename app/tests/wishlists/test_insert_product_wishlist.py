@@ -58,7 +58,7 @@ def test_should_insert_product_into_wishlist_and_return_wishlist(
     )
 
     assert (
-        type(wishlist.products) is list and
+        isinstance(wishlist.products, list) and
         len(wishlist.products) == 1 and
         wishlist.products[0].id == '1bf0f365-fbdd-4e21-9786-da459d78dd1f'
     )

@@ -40,9 +40,9 @@ def test_should_create_and_return_new_wishlist(create_wishlist):
     )
 
     assert (
-        type(wishlist.id) is uuid.UUID
-        and wishlist.title == 'title test'
-        and wishlist.description == 'description test'
+        isinstance(wishlist.id, uuid.UUID) and
+        wishlist.title == 'title test' and
+        wishlist.description == 'description test'
     )
 
 

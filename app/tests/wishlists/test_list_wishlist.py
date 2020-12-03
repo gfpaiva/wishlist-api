@@ -55,12 +55,12 @@ def test_should_list_wishlist(
     wishlist = list_wishlist_service.run(created_wishlist.id)
 
     assert (
-        wishlist.id == created_wishlist.id
-        and wishlist.title == 'title test'
-        and wishlist.description == 'description test'
-        and type(wishlist.products) == list
-        and len(wishlist.products) == 1
-        and wishlist.products[0].id == '958ec015-cfcf-258d-c6df-1721de0ab6ea'
+        wishlist.id == created_wishlist.id and
+        wishlist.title == 'title test' and
+        wishlist.description == 'description test' and
+        isinstance(wishlist.products, list) and
+        len(wishlist.products) == 1 and
+        wishlist.products[0].id == '958ec015-cfcf-258d-c6df-1721de0ab6ea'
     )
 
 
