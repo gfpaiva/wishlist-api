@@ -4,7 +4,7 @@ install:
 	pip install -r app/requirements.txt
 
 lint: 
-	flake8 app/src
+	flake8 app/src --count --show-source --statistics --max-line-length=80
 
 test: 
 	pytest
