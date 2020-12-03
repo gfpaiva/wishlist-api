@@ -10,4 +10,4 @@ test:
 	pytest
 
 test-cov: 
-	pytest --cov-config=.coveragerc --cov=app --cov-report term --cov-report html
+	pytest --cov-config=.coveragerc --cov=app --cov-report term --cov-report html --cov-report=xml
