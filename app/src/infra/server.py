@@ -17,7 +17,7 @@ from src.version import __version__
 
 token_repository = JWTRepository()
 
-app = FastAPI(redoc_url=None, root_path="/api/v1")
+app = FastAPI(redoc_url=None)
 app.include_router(root_router)
 app.include_router(auth_router)
 app.include_router(
@@ -38,11 +38,6 @@ def custom_openapi():
         version=__version__,
         description="This is the docs from wishlist api",
         routes=app.routes,
-        servers=[
-            {
-                "url": "/api/v1"
-            }
-        ]
     )
     app.openapi_schema = openapi_schema
     return app.openapi_schema

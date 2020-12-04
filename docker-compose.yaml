@@ -34,10 +34,10 @@ services:
     volumes:
       - ./app:/code
     ports:
+      - 80:80
       - 5678:5678
     networks:
       - backnet
-      - frontnet
     depends_on:
       - db
       - cache
@@ -51,19 +51,9 @@ services:
       - CACHE_PORT=${CACHE_PORT}
       - CACHE_PASSWORD=${CACHE_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
-  web:
-    build: web
-    restart: always
-    ports:
-      - 80:80
-    networks:
-      - frontnet
-    depends_on:
-      - app
 volumes:
   db-data:
   redis-data:
   redis.conf:
 networks:
   backnet:
-  frontnet:
