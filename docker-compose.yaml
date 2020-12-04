@@ -34,7 +34,7 @@ services:
     volumes:
       - ./app:/code
     ports:
-      - 80:80
+      - 3000:3000
       - 5678:5678
     networks:
       - backnet

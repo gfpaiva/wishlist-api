@@ -1,6 +1,10 @@
+import logging
+
 from src.domains.users.model.user import User
 from src.domains.users.repository.users_repository import UsersRepository
 from src.exceptions.user_exception import UserException
+
+logger = logging.getLogger(__name__)
 
 
 class UpdateUser:
@@ -21,7 +25,14 @@ class UpdateUser:
         Checks required fields and if is updating user email,
         checks if the new one alredy exists before update it.
         """
+        logger.info(
+            f'Updating user <{user_id}> with <{name}> - <{email}>'
+        )
+
         if not name and not email:
+            logger.exception(
+                f'User <{user_id}> did not provide name or email'
+            )
             raise UserException(
                 status_code=400,
                 detail='You must provide name or email'
@@ -30,6 +41,9 @@ class UpdateUser:
         user = self.users_repository.find_by_id(user_id)
 
         if not user:
+            logger.exception(
+                f'User <{user_id}> not found'
+            )
             raise UserException(
                 status_code=404,
                 detail=f'User {user_id} does not exists'
@@ -39,6 +53,9 @@ class UpdateUser:
             find_email = self.users_repository.find_by_email(email)
 
             if find_email:
+                logger.exception(
+                    f'User with <{email}> alredy exists'
+                )
                 raise UserException(
                     status_code=409,
                     detail=f'User with email {email} alredy exists'

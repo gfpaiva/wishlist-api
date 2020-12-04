@@ -1,8 +1,12 @@
+import logging
+
 from src.domains.wishlists.model.wishlist import Wishlist
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
 )
 from src.exceptions.wishlist_exception import WishlistException
+
+logger = logging.getLogger(__name__)
 
 
 class UpdateWishlist:
@@ -22,7 +26,16 @@ class UpdateWishlist:
         Service for update wishlist details.
         Checks required fields and if wishlist exists
         """
+        logger.info(
+            f'Updating wishlist <{wishlist_id}> \
+            with <{title}> - <{description}>'
+        )
+
         if not title and not description:
+            logger.exception(
+                f'Wishlist <{wishlist_id}> did not provide \
+                title or description'
+            )
             raise WishlistException(
                 status_code=400,
                 detail='You must provide title or description'
@@ -31,6 +44,9 @@ class UpdateWishlist:
         wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
+            logger.exception(
+                f'Wishlist <{wishlist_id}> not found'
+            )
             raise WishlistException(
                 status_code=404,
                 detail=f'Wishlist {wishlist_id} does not exists'
