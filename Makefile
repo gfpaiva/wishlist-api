@@ -22,5 +22,6 @@ test-cov:
 test-integration: 
 	docker-compose -f docker-compose.test.yaml down -v
 	docker-compose  -f docker-compose.test.yaml up -d
+	sleep 5
 	PYTHON_ENV='test' DB_PASSWORD='wishlist' CACHE_PASSWORD='wishlist' pytest app/tests/integration -s
 	docker-compose -f docker-compose.test.yaml down -v
