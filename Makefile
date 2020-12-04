@@ -7,6 +7,9 @@ dev:
 	docker-compose down
 	docker-compose up -d
 
+start: 
+	PYTHON_ENV=${PYTHON_ENV} cd app && uvicorn src.infra.server:app --workers 4 --host=0.0.0.0 --port=${PORT}
+
 dev-logs: 
 	docker-compose logs -f
 
