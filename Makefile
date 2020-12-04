@@ -8,7 +8,7 @@ dev:
 	docker-compose up -d
 
 start: 
-	PYTHON_ENV=${PYTHON_ENV} cd app && gunicorn -w 4 -k uvicorn.workers.UvicornWorker src.infra.server:app
+	PYTHON_ENV=${PYTHON_ENV} cd app && uvicorn src.infra.server:app --workers 4
 
 dev-logs: 
 	docker-compose logs -f
