@@ -1,6 +1,10 @@
+import logging
+
 from src.domains.users.model.user import User
 from src.domains.users.repository.users_repository import UsersRepository
 from src.exceptions.user_exception import UserException
+
+logger = logging.getLogger(__name__)
 
 
 class CreateUser:
@@ -20,7 +24,12 @@ class CreateUser:
         Checks required fields
         and user email alredy exists before insert it.
         """
+        logger.info(f'Creating user <{name}> - <{email}>')
+
         if not name or not email:
+            logger.exception(
+                'Did not provide name or email'
+            )
             raise UserException(
                 status_code=400,
                 detail='You must provide name and email'
@@ -29,6 +38,9 @@ class CreateUser:
         find_email = self.users_repository.find_by_email(email)
 
         if find_email:
+            logger.exception(
+                f'User with <{email}> alredy exists'
+            )
             raise UserException(
                 status_code=409,
                 detail=f'User with email {email} alredy exists'

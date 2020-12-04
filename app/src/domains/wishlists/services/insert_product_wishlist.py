@@ -1,3 +1,5 @@
+import logging
+
 from src.domains.wishlists.model.wishlist import Wishlist
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
@@ -9,6 +11,8 @@ from src.domains.products.repository.products_repository import (
     ProductsRepository
 )
 from src.exceptions.wishlist_exception import WishlistException
+
+logger = logging.getLogger(__name__)
 
 
 class InsertProductWishlist:
@@ -33,9 +37,17 @@ class InsertProductWishlist:
         if product alredy exists on wishlist (can't duplicate)
         and if product exists on products_repository (external service)
         """
+        logger.info(
+            f'Inserting product <{product_id}> \
+            for wishlist <{wishlist_id}>'
+        )
+
         wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
+            logger.exception(
+                f'Wishlist <{wishlist_id}> not found'
+            )
             raise WishlistException(
                 status_code=404,
                 detail=f'Wishlist {wishlist_id} does not exists'
@@ -48,6 +60,10 @@ class InsertProductWishlist:
                    ))
 
         if product:
+            logger.exception(
+                f'Product <{product_id}> alredy exists \
+                in wishlist <{wishlist_id}>'
+            )
             raise WishlistException(
                 status_code=409,
                 detail=f'Product {product_id} is alredy on Wishlist'
@@ -56,6 +72,9 @@ class InsertProductWishlist:
         product_data = self.products_repository.find_by_id(product_id)
 
         if not product_data:
+            logger.exception(
+                f'Product <{product_id}> not found'
+            )
             raise WishlistException(
                 status_code=404,
                 detail=f'Product {product_id} does not exists'

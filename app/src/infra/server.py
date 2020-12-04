@@ -7,7 +7,10 @@ from fastapi import (
 
 from fastapi.openapi.utils import get_openapi
 
+from src.infra.log import setup_logger
+
 from src.domains.auth.repository import JWTRepository
+
 from src.infra.routes import root_router
 from src.domains.auth.routes import auth_router
 from src.domains.users.routes import user_router
@@ -15,6 +18,7 @@ from src.domains.wishlists.routes import wishlist_router
 
 from src.version import __version__
 
+setup_logger()
 token_repository = JWTRepository()
 
 app = FastAPI(redoc_url=None)

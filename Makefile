@@ -17,7 +17,7 @@ lint:
 	flake8 app/src --count --show-source --statistics --max-line-length=90
 
 test: 
-	pytest app/tests/services -s
+	pytest app/tests/services
 
 test-cov: 
 	pytest  app/tests/services --cov-config=.coveragerc --cov=app --cov-report term --cov-report html --cov-report=xml --ignore=app/tests/integration
@@ -26,5 +26,5 @@ test-integration:
 	docker-compose -f docker-compose.test.yaml down -v
 	docker-compose  -f docker-compose.test.yaml up -d
 	sleep 5
-	PYTHON_ENV='test' DB_PASSWORD='wishlist' CACHE_PASSWORD='wishlist' pytest app/tests/integration -s
+	PYTHON_ENV='test' DB_PASSWORD='wishlist' CACHE_PASSWORD='wishlist' pytest app/tests/integration
 	docker-compose -f docker-compose.test.yaml down -v

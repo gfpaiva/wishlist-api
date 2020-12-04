@@ -1,7 +1,11 @@
+import logging
+
 from src.domains.auth.repository.auths_repository import AuthsRepository
 from src.domains.auth.repository.hash_repository import HashRepository
 from src.domains.auth.repository.token_repository import TokenRepository
 from src.exceptions.credentials_exception import CredentialsException
+
+logger = logging.getLogger(__name__)
 
 
 class Login:
@@ -24,7 +28,14 @@ class Login:
         Service for login user and get a token
         Checks if username auth exists and if password matches
         """
+        logger.info(
+            f'Getting auth token for username <{username}>'
+        )
+
         if not username or not password:
+            logger.exception(
+                'Did not provide username and password'
+            )
             raise CredentialsException(
                 status_code=400,
                 detail='You must provide username and password'
@@ -38,12 +49,18 @@ class Login:
         )
 
         if not auth:
+            logger.exception(
+                f'User <{username}> did not exists'
+            )
             raise credentials_exception
 
         if not self.hash_repository.verify(
             plain=password,
             hashed=auth.password,
         ):
+            logger.exception(
+                f'Wrong credentials for user <{username}>'
+            )
             raise credentials_exception
 
         data = {

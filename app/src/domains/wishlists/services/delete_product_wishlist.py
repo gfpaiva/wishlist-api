@@ -1,3 +1,5 @@
+import logging
+
 from src.domains.wishlists.repository.wishlists_repository import (
     WishlistsRepository
 )
@@ -5,6 +7,8 @@ from src.domains.wishlists.repository.wishlists_products_repository import (
     WishlistsProductsRepository
 )
 from src.exceptions.wishlist_exception import WishlistException
+
+logger = logging.getLogger(__name__)
 
 
 class DeleteProductWishlist:
@@ -25,9 +29,17 @@ class DeleteProductWishlist:
         Service for remove product from wishlist
         Cehcks if wishlist and product exists
         """
+        logger.info(
+            f'Deleting product {product_id} \
+            for wishlist {wishlist_id}'
+        )
+
         wishlist = self.wishlists_repository.find_by_id(wishlist_id)
 
         if not wishlist:
+            logger.exception(
+                f'Wishlist {wishlist_id} not found'
+            )
             raise WishlistException(
                 status_code=404,
                 detail=f'Wishlist {wishlist_id} does not exists'
@@ -40,6 +52,10 @@ class DeleteProductWishlist:
                    ))
 
         if not product:
+            logger.exception(
+                f'Product {product_id} not found \
+                in wishlist {wishlist_id}'
+            )
             raise WishlistException(
                 status_code=404,
                 detail=f'Product {product_id} does not exists in wishlist'
