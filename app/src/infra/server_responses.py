@@ -1,8 +1,4 @@
-from pydantic import (
-    BaseModel,
-    EmailStr,
-    UUID4,
-)
+from pydantic import BaseModel
 
 
 class Conflict(BaseModel):
