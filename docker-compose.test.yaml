@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:13.0
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=wishlist
+      - POSTGRES_USER=wishlist
+      - POSTGRES_PASSWORD=wishlist
+  cache:
+    image: redis:alpine
+    restart: always
+    command: redis-server --requirepass wishlist
+    volumes:
+      - redis-data:/var/lib/redis
+      - redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_REPLICATION_MODE=master
+volumes:
+  db-data:
+  redis-data:
+  redis.conf:

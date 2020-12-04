@@ -3,6 +3,11 @@ from typing import List
 from fastapi import APIRouter
 from playhouse.shortcuts import model_to_dict
 
+from src.infra.server_responses import (
+    conflict,
+    not_found
+)
+
 from src.domains.users.repository import DBUsersRepository
 from src.domains.users.services.create_user import CreateUser
 from src.domains.users.services.update_user import UpdateUser
@@ -38,6 +43,7 @@ def list_users():
 @user_router.post(
     '/user',
     response_model=UserResponse,
+    responses=conflict,
     tags=['user'],
 )
 def create_user(user: UserRequestBody):
@@ -49,8 +55,9 @@ def create_user(user: UserRequestBody):
 
 
 @user_router.get(
-    '/user/{id}',
+    '/user/{user_id}',
     response_model=UserResponse,
+    responses=not_found,
     tags=['user'],
 )
 def show_user(user_id: UUID):
@@ -67,8 +74,9 @@ def show_user(user_id: UUID):
 
 
 @user_router.patch(
-    '/user/{id}',
+    '/user/{user_id}',
     response_model=UserResponse,
+    responses={**not_found, **conflict},
     tags=['user'],
 )
 def update_user(user_id: UUID, user: UserUpdateRequestBody):
@@ -85,8 +93,9 @@ def update_user(user_id: UUID, user: UserUpdateRequestBody):
 
 
 @user_router.delete(
-    '/user/{id}',
+    '/user/{user_id}',
     status_code=204,
+    responses=not_found,
     tags=['user'],
 )
 def delete_user(user_id: UUID):

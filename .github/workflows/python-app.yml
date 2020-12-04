@@ -25,9 +25,12 @@ jobs:
       - name: Lint
         run: |
           make lint
-      - name: Test
+      - name: Unit Tests
         run: |
           make test-cov
+      - name: Integration Tests
+        run: |
+          make test-integration
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:

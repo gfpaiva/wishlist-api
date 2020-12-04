@@ -4,6 +4,11 @@ from typing import List
 from fastapi import APIRouter
 from playhouse.shortcuts import model_to_dict
 
+from src.infra.server_responses import (
+    not_found,
+    conflict,
+)
+
 from src.domains.users.repository import DBUsersRepository
 from src.domains.wishlists.repository import (
     DBWishlistsRepository,
@@ -65,8 +70,9 @@ wishlist_router = APIRouter()
 
 
 @wishlist_router.get(
-    '/wishlist/{id}',
+    '/wishlist/{wishlist_id}',
     response_model=WishlistProductsResponse,
+    responses=not_found,
     tags=['wishlist'],
 )
 def show_wishlist(wishlist_id: UUID):
@@ -83,8 +89,9 @@ def show_wishlist(wishlist_id: UUID):
 
 
 @wishlist_router.patch(
-    '/wishlist/{id}',
+    '/wishlist/{wishlist_id}',
     response_model=WishlistUserResponse,
+    responses=not_found,
     tags=['wishlist'],
 )
 def update_wishlist(wishlist_id: UUID, wishlist: WishlistUpdateRequestBody):
@@ -101,8 +108,9 @@ def update_wishlist(wishlist_id: UUID, wishlist: WishlistUpdateRequestBody):
 
 
 @wishlist_router.delete(
-    '/wishlist/{id}',
+    '/wishlist/{wishlist_id}',
     status_code=204,
+    responses=not_found,
     tags=['wishlist'],
 )
 def delete_wishlist(wishlist_id: UUID):
@@ -116,6 +124,7 @@ def delete_wishlist(wishlist_id: UUID):
 @wishlist_router.post(
     '/wishlist/{wishlist_id}/product/{product_id}',
     response_model=WishlistProductsResponse,
+    responses={**not_found, **conflict},
     tags=['wishlist'],
 )
 def insert_product_wishlist(wishlist_id: UUID, product_id: str):
@@ -138,6 +147,7 @@ def insert_product_wishlist(wishlist_id: UUID, product_id: str):
 @wishlist_router.delete(
     '/wishlist/{wishlist_id}/product/{product_id}',
     status_code=204,
+    responses=not_found,
     tags=['wishlist'],
 )
 def delete_product_wishlist(wishlist_id: UUID, product_id: str):
@@ -155,6 +165,7 @@ def delete_product_wishlist(wishlist_id: UUID, product_id: str):
 @wishlist_router.get(
     '/user/{user_id}/wishlist',
     response_model=List[WishlistResponse],
+    responses=not_found,
     tags=['user', 'wishlist'],
 )
 def show_user_wishlists(user_id: UUID):
@@ -176,6 +187,7 @@ def show_user_wishlists(user_id: UUID):
 @wishlist_router.post(
     '/user/{user_id}/wishlist',
     response_model=WishlistUserResponse,
+    responses=not_found,
     tags=['user', 'wishlist'],
 )
 def create_wishlist(user_id: UUID, wishlist: WishlistRequestBody):

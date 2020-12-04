@@ -1,3 +1,4 @@
+from os import getenv
 import debugpy
 from fastapi import (
     FastAPI,
@@ -49,4 +50,5 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 
-debugpy.listen(('0.0.0.0', 5678))
+if getenv('PYTHON_ENV', 'development') == 'development':
+    debugpy.listen(('0.0.0.0', getenv('DEBUGPY_PORT', 5678)))

@@ -4,6 +4,8 @@ from fastapi import (
 )
 from fastapi.security import OAuth2PasswordRequestForm
 
+from src.infra.server_responses import unauthorized
+
 from src.domains.auth.model.token import Token
 from src.domains.auth.repository import (
     DBAuthsRepository,
@@ -27,6 +29,7 @@ auth_router = APIRouter()
 @auth_router.post(
     '/token',
     response_model=Token,
+    responses=unauthorized,
     tags=['auth'],
 )
 def get_token(form_data: OAuth2PasswordRequestForm = Depends()):
